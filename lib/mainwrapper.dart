@@ -21,6 +21,7 @@ class _MainwrapperState extends State<Mainwrapper> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      extendBodyBehindAppBar: true,
       body: widget.navigationShell,
       bottomNavigationBar: CrystalNavigationBar(
         currentIndex: widget.navigationShell.currentIndex,
