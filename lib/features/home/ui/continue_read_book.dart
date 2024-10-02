@@ -8,7 +8,7 @@ class ContinueReadBook extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 150,
       child: Column(
         children: [
@@ -47,6 +47,22 @@ class ContinueReadBook extends StatelessWidget {
                         fit: BoxFit.cover,
                       );
                     },
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 10,
+                right: 10,
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.black.withOpacity(0.3),
+                  ),
+                  child: const Text(
+                    "Chap 10",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

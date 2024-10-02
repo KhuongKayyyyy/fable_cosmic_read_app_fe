@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 
 class BookItem extends StatelessWidget {
   final BookModel book;
-  BookItem({super.key, required this.book});
+  const BookItem({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 150,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: 200,
@@ -51,8 +52,9 @@ class BookItem extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             book.name ?? "",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
+          const Spacer(),
           Text(book.author ?? ""),
         ],
       ),

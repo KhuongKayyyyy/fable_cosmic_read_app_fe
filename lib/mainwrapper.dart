@@ -26,6 +26,7 @@ class _MainwrapperState extends State<Mainwrapper> {
       bottomNavigationBar: CrystalNavigationBar(
         currentIndex: widget.navigationShell.currentIndex,
         unselectedItemColor: Colors.white70,
+        selectedItemColor: Colors.pink[400],
         backgroundColor: Colors.black.withOpacity(0.1),
         onTap: _goToPage,
         items: [
