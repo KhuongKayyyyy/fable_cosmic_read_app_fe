@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:fable_cosmic_read_app_fe/features/book_detail/model/chapter_model.dart';
-import 'package:fable_cosmic_read_app_fe/utils/api_config.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/chapter_model.dart';
+import 'package:fable_cosmic_read_app_fe/core/constant/api_config.dart';
 
 import 'dart:developer';
 import 'dart:io';

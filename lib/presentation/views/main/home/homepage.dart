@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import "package:fable_cosmic_read_app_fe/features/home/ui/continue_read_book.dart";
-import "package:fable_cosmic_read_app_fe/features/home/ui/new_coming_book.dart";
-import "package:fable_cosmic_read_app_fe/global/app_image.dart";
-import "package:fable_cosmic_read_app_fe/features/home/ui/book_item.dart";
+import "package:fable_cosmic_read_app_fe/presentation/widget/book/continue_read_book.dart";
+import "package:fable_cosmic_read_app_fe/presentation/widget/book/new_coming_book.dart";
+import "package:fable_cosmic_read_app_fe/core/constant/app_image.dart";
+import "package:fable_cosmic_read_app_fe/presentation/widget/book/book_item.dart";
 import "package:fable_cosmic_read_app_fe/mainwrapper.dart";
-import "package:fable_cosmic_read_app_fe/utils/routes.dart";
-import 'package:fable_cosmic_read_app_fe/features/home/bloc/home_bloc.dart';
+import "package:fable_cosmic_read_app_fe/core/router/routes.dart";
+import 'package:fable_cosmic_read_app_fe/presentation/bloc/home/home_bloc.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});

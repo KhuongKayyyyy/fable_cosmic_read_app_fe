@@ -1,5 +1,5 @@
-import 'package:fable_cosmic_read_app_fe/features/home/model/book_model.dart';
-import 'package:fable_cosmic_read_app_fe/global/app_image.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/book_model.dart';
+import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:flutter/material.dart';
 
 class NewComingBook extends StatelessWidget {

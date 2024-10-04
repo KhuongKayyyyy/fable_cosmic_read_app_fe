@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:fable_cosmic_read_app_fe/utils/api_config.dart';
-import 'package:fable_cosmic_read_app_fe/features/home/model/book_model.dart';
+import 'package:fable_cosmic_read_app_fe/core/constant/api_config.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/book_model.dart';
 
 class BookRepo {
   static Future<List<BookModel>> fetchBooks() async {

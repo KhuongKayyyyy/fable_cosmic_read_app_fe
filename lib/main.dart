@@ -1,5 +1,5 @@
-import 'package:fable_cosmic_read_app_fe/utils/app_navigation.dart';
-import 'package:fable_cosmic_read_app_fe/utils/app_theme.dart';
+import 'package:fable_cosmic_read_app_fe/core/router/app_navigation.dart';
+import 'package:fable_cosmic_read_app_fe/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,4 +1,4 @@
-import 'package:fable_cosmic_read_app_fe/features/book_detail/model/chapter_model.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/chapter_model.dart';
 import 'package:flutter/material.dart';
 
 class ChapterRead extends StatefulWidget {

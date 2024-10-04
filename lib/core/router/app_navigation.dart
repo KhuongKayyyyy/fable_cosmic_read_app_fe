@@ -1,13 +1,13 @@
-import 'package:fable_cosmic_read_app_fe/features/book_detail/model/chapter_model.dart';
-import 'package:fable_cosmic_read_app_fe/features/book_detail/ui/book_detail_page.dart';
-import 'package:fable_cosmic_read_app_fe/features/book_detail/ui/chapter_read.dart';
-import 'package:fable_cosmic_read_app_fe/features/home/model/book_model.dart';
-import 'package:fable_cosmic_read_app_fe/features/home/ui/homepage.dart';
-import 'package:fable_cosmic_read_app_fe/features/library/ui/library.dart';
-import 'package:fable_cosmic_read_app_fe/features/search/ui/search.dart';
-import 'package:fable_cosmic_read_app_fe/features/setting/ui/setting.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/chapter_model.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail_page.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/book/chapter_read.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/book_model.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/main/home/homepage.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/main/library/library.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/main/search/search.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/main/setting/setting.dart';
 import 'package:fable_cosmic_read_app_fe/mainwrapper.dart';
-import 'package:fable_cosmic_read_app_fe/utils/routes.dart';
+import 'package:fable_cosmic_read_app_fe/core/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
