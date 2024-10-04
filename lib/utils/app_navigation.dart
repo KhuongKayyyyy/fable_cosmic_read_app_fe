@@ -1,3 +1,7 @@
+import 'package:fable_cosmic_read_app_fe/features/book_detail/model/chapter_model.dart';
+import 'package:fable_cosmic_read_app_fe/features/book_detail/ui/book_detail_page.dart';
+import 'package:fable_cosmic_read_app_fe/features/book_detail/ui/chapter_read.dart';
+import 'package:fable_cosmic_read_app_fe/features/home/model/book_model.dart';
 import 'package:fable_cosmic_read_app_fe/features/home/ui/homepage.dart';
 import 'package:fable_cosmic_read_app_fe/features/library/ui/library.dart';
 import 'package:fable_cosmic_read_app_fe/features/search/ui/search.dart';
@@ -66,6 +70,26 @@ class AppNavigation {
                       return const Setting();
                     })
               ], navigatorKey: _shellNavigatorSettingKey),
-            ])
+            ]),
+        GoRoute(
+            path: Routes.bookDetail,
+            name: Routes.bookDetail,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) {
+              final BookModel book = state.extra as BookModel;
+              return BookDetailPage(
+                bookModel: book,
+              );
+            }),
+        GoRoute(
+            path: Routes.chapterRead,
+            name: Routes.chapterRead,
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) {
+              final ChapterModel chapter = state.extra as ChapterModel;
+              return ChapterRead(
+                chapterModel: chapter,
+              );
+            })
       ]);
 }

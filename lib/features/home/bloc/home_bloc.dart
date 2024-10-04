@@ -12,6 +12,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       // TODO: implement event handler
     });
     on<HomeInitialEvent>(homeInitialEvent);
+    on<BookSelectedEvent>(bookSelectedEvent);
   }
 
   Future<void> homeInitialEvent(
@@ -23,5 +24,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } catch (e) {
       emit(BookFetchingFailureState());
     }
+  }
+
+  Future<void> bookSelectedEvent(
+      BookSelectedEvent event, Emitter<HomeState> emit) async {
+    emit(NavigatedToDetailState(event.book));
   }
 }

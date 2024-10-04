@@ -30,7 +30,6 @@ class BookRepo {
           log('Fetched books: ${books.toString()}');
         }
       }
-
       return books;
     } catch (e) {
       log(e.toString());

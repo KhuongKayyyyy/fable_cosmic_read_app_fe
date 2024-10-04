@@ -11,6 +11,7 @@ class ContinueReadBook extends StatelessWidget {
     return SizedBox(
       width: 150,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
@@ -73,6 +74,7 @@ class ContinueReadBook extends StatelessWidget {
             book.name ?? "",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
+          const Spacer(),
           Text(book.author ?? ""),
         ],
       ),

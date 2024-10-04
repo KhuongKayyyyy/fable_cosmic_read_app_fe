@@ -15,3 +15,8 @@ class BookFetchingSuccessState extends HomeState {
   final List<BookModel> books;
   BookFetchingSuccessState(this.books);
 }
+
+class NavigatedToDetailState extends HomeActionState {
+  final BookModel book;
+  NavigatedToDetailState(this.book);
+}

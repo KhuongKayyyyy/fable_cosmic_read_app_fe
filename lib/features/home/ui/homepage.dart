@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import "package:fable_cosmic_read_app_fe/features/home/ui/continue_read_book.dart";
 import "package:fable_cosmic_read_app_fe/features/home/ui/new_coming_book.dart";
 import "package:fable_cosmic_read_app_fe/global/app_image.dart";
 import "package:fable_cosmic_read_app_fe/features/home/ui/book_item.dart";
-import "package:flutter/material.dart";
-import "package:flutter_bloc/flutter_bloc.dart";
+import "package:fable_cosmic_read_app_fe/mainwrapper.dart";
+import "package:fable_cosmic_read_app_fe/utils/routes.dart";
 import 'package:fable_cosmic_read_app_fe/features/home/bloc/home_bloc.dart';
 
 class Homepage extends StatefulWidget {
@@ -25,7 +28,14 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is NavigatedToDetailState) {
+          context.pushNamed(
+            Routes.bookDetail,
+            extra: state.book,
+          );
+        }
+      },
       bloc: homeBloc,
       listenWhen: (previous, current) => current is HomeActionState,
       buildWhen: (previous, current) => current is! HomeActionState,
@@ -231,7 +241,12 @@ class _HomepageState extends State<Homepage> {
                                     successState.books.elementAt(index);
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 10),
-                                  child: BookItem(book: book),
+                                  child: BookItem(
+                                    book: book,
+                                    onTap: () {
+                                      homeBloc.add(BookSelectedEvent(book));
+                                    },
+                                  ),
                                 );
                               },
                             ),
