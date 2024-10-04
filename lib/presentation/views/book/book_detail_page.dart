@@ -1,7 +1,6 @@
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/book_detail/book_detail_bloc.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book_model.dart';
 import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
-import 'package:fable_cosmic_read_app_fe/mainwrapper.dart';
 import 'package:fable_cosmic_read_app_fe/core/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 class BookDetailPage extends StatefulWidget {
   final BookModel bookModel;
-  BookDetailPage({Key? key, required this.bookModel}) : super(key: key);
+  const BookDetailPage({Key? key, required this.bookModel}) : super(key: key);
 
   @override
   _BookDetailPageState createState() => _BookDetailPageState();

@@ -4,6 +4,6 @@ part of 'book_detail_bloc.dart';
 sealed class BookDetailEvent {}
 
 class BookDetailInitialEvent extends BookDetailEvent {
-  String bookId;
+  final String bookId;
   BookDetailInitialEvent(this.bookId);
 }

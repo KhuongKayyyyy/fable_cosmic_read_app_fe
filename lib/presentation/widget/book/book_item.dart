@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 class BookItem extends StatelessWidget {
   final BookModel book;
-  VoidCallback? onTap;
-  BookItem({super.key, required this.book, this.onTap});
+  final VoidCallback? onTap;
+  const BookItem({super.key, required this.book, this.onTap});
 
   @override
   Widget build(BuildContext context) {

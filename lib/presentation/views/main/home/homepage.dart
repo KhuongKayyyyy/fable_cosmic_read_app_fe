@@ -5,7 +5,6 @@ import "package:fable_cosmic_read_app_fe/presentation/widget/book/continue_read_
 import "package:fable_cosmic_read_app_fe/presentation/widget/book/new_coming_book.dart";
 import "package:fable_cosmic_read_app_fe/core/constant/app_image.dart";
 import "package:fable_cosmic_read_app_fe/presentation/widget/book/book_item.dart";
-import "package:fable_cosmic_read_app_fe/mainwrapper.dart";
 import "package:fable_cosmic_read_app_fe/core/router/routes.dart";
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/home/home_bloc.dart';
 
