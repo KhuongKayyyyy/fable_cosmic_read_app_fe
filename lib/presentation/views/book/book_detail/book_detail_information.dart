@@ -48,16 +48,33 @@ class _BookDetailInformationState extends State<BookDetailInformation> {
             ],
           ),
           // status
+          // Row(
+          //   children: [
+          //     const Text("Status",
+          //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          //     const Spacer(),
+          //     Text(
+          //       widget.book.status!,
+          //       style: const TextStyle(fontWeight: FontWeight.w600),
+          //     ),
+          //   ],
+          // ),
+          // statistics
           Row(
             children: [
-              const Text("Status",
+              const Text("Views",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
               const Spacer(),
               Text(
-                widget.book.status!,
-                style: const TextStyle(fontWeight: FontWeight.w600),
+                widget.book.viewCount.toString(),
+                style: TextStyle(
+                    fontWeight: (FontWeight.w600),
+                    color: AppTheme.primaryColor),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 10,
           ),
           // introduction
           const Text("Introduction",
@@ -96,31 +113,8 @@ class _BookDetailInformationState extends State<BookDetailInformation> {
               );
             },
           ),
-
-          // statistics
-          Row(
-            children: [
-              Text("Views",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20)),
-              Text(widget.book.viewCount.toString()),
-            ],
-          ),
-          Row(
-            children: [
-              Text("Likes",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20)),
-              Text(widget.book.likeCount.toString()),
-            ],
-          ),
-          Row(
-            children: [
-              Text("Follows",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20)),
-              Text(widget.book.followCount.toString()),
-            ],
+          const SizedBox(
+            height: 10,
           ),
         ],
       ),

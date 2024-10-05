@@ -1,9 +1,12 @@
+import 'package:fable_cosmic_read_app_fe/core/theme/app_theme.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/book_detail/book_detail_bloc.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:fable_cosmic_read_app_fe/core/router/routes.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/book_detail_heading.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/book_detail_information.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/chapter_item.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/like_follow_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -112,37 +115,100 @@ class _BookDetailPageState extends State<BookDetailPage> {
                     BookDetailInformation(
                       book: widget.bookModel,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Text("Chapters",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          const Text("Chapters",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Text(
+                            " - ${extractNumber(successState.chapters.last.title)}",
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          const Spacer(),
+                          Text(widget.bookModel.status!,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: AppTheme.primaryColor,
+                              )),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,
-                      itemCount: successState.chapters.take(10).length,
+                      itemCount: successState.chapters.take(5).length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          onTap: () {
-                            final pathParameters = {
-                              "bookId": widget.bookModel.id!,
-                              "chapterId": successState.chapters[index].id,
-                            };
-                            context.pushNamed(Routes.chapterRead,
-                                pathParameters: pathParameters);
-                          },
-                          title: Text(successState.chapters[index].title),
+                        return Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: ChapterItem(
+                            chapter: successState.chapters.elementAt(index),
+                            onTap: () {
+                              final pathParameters = {
+                                "bookId": widget.bookModel.id!,
+                                "chapterId": successState.chapters[index].id,
+                              };
+                              context.pushNamed(Routes.chapterRead,
+                                  pathParameters: pathParameters);
+                            },
+                          ),
                         );
                       },
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: LikeFollowSection(book: widget.bookModel),
+                    ),
+                    const SizedBox(
+                      height: 100,
                     ),
                   ],
+                ),
+              ),
+              bottomSheet: Container(
+                padding: const EdgeInsets.all(10),
+                height: 90,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 10,
+                        spreadRadius: 5,
+                      )
+                    ]),
+                child: InkWell(
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 15),
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: AppTheme.primaryColor,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: const Center(
+                      child: Text(
+                        "Read now",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             );
@@ -155,5 +221,21 @@ class _BookDetailPageState extends State<BookDetailPage> {
         }
       },
     );
+  }
+
+  String extractNumber(String input) {
+    // Use regular expression to find numbers
+    final RegExp numberRegExp = RegExp(r'\d+');
+    final Match? match = numberRegExp.firstMatch(input);
+
+    // Return the number as a string, or return an empty string if not found
+    return match != null ? match.group(0)! : '';
+  }
+
+  void main() {
+    String input = "Chương 124";
+    String number = extractNumber(input);
+
+    print(number); // Output: 124
   }
 }
