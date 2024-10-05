@@ -1,9 +1,9 @@
-import 'package:fable_cosmic_read_app_fe/data/model/book_model.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:flutter/material.dart';
 
 class BookItem extends StatelessWidget {
-  final BookModel book;
+  final Book book;
   final VoidCallback? onTap;
   const BookItem({super.key, required this.book, this.onTap});
 

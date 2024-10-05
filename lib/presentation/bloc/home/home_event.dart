@@ -6,6 +6,6 @@ sealed class HomeEvent {}
 class HomeInitialEvent extends HomeEvent {}
 
 class BookSelectedEvent extends HomeEvent {
-  final BookModel book;
+  final Book book;
   BookSelectedEvent(this.book);
 }

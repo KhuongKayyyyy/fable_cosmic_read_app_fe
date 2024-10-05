@@ -1,7 +1,7 @@
-import 'package:fable_cosmic_read_app_fe/data/model/chapter_model.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/chapter.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail_page.dart';
-import 'package:fable_cosmic_read_app_fe/presentation/views/book/chapter_read.dart';
-import 'package:fable_cosmic_read_app_fe/data/model/book_model.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/book/chapter_read_page.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/home/homepage.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/library/library.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/search/search.dart';
@@ -76,19 +76,21 @@ class AppNavigation {
             name: Routes.bookDetail,
             parentNavigatorKey: _rootNavigatorKey,
             builder: (context, state) {
-              final BookModel book = state.extra as BookModel;
+              final Book book = state.extra as Book;
               return BookDetailPage(
                 bookModel: book,
               );
             }),
         GoRoute(
-            path: Routes.chapterRead,
+            path: "${Routes.chapterRead}/:bookId/:chapterId",
             name: Routes.chapterRead,
             parentNavigatorKey: _rootNavigatorKey,
             builder: (context, state) {
-              final ChapterModel chapter = state.extra as ChapterModel;
-              return ChapterRead(
-                chapterModel: chapter,
+              final String chapterId = state.pathParameters['chapterId']!;
+              final String bookId = state.pathParameters['bookId']!;
+              return ChapterReadPage(
+                chapterId: chapterId,
+                bookId: bookId,
               );
             })
       ]);

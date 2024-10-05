@@ -1,16 +1,15 @@
 import 'dart:convert';
 
-ChapterModel chapterModelFromJson(String str) =>
-    ChapterModel.fromJson(json.decode(str));
+Chapter chapterModelFromJson(String str) => Chapter.fromJson(json.decode(str));
 
-class ChapterModel {
+class Chapter {
   final String id;
   final String title;
   final List<String> pages;
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  ChapterModel({
+  Chapter({
     required this.id,
     required this.title,
     required this.pages,
@@ -19,8 +18,8 @@ class ChapterModel {
   });
 
   // Factory method to create a ChapterModel from a JSON map
-  factory ChapterModel.fromJson(Map<String, dynamic> json) {
-    return ChapterModel(
+  factory Chapter.fromJson(Map<String, dynamic> json) {
+    return Chapter(
       id: json['_id'] as String,
       title: json['title'] as String,
       pages: List<String>.from(json['pages']),

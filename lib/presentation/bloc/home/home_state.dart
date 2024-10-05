@@ -12,11 +12,11 @@ class BookFetchingLoadingState extends HomeState {}
 class BookFetchingFailureState extends HomeState {}
 
 class BookFetchingSuccessState extends HomeState {
-  final List<BookModel> books;
+  final List<Book> books;
   BookFetchingSuccessState(this.books);
 }
 
 class NavigatedToDetailState extends HomeActionState {
-  final BookModel book;
+  final Book book;
   NavigatedToDetailState(this.book);
 }

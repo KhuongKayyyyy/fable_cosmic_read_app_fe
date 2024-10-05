@@ -1,5 +1,5 @@
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/book_detail/book_detail_bloc.dart';
-import 'package:fable_cosmic_read_app_fe/data/model/book_model.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:fable_cosmic_read_app_fe/core/router/routes.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class BookDetailPage extends StatefulWidget {
-  final BookModel bookModel;
+  final Book bookModel;
   const BookDetailPage({Key? key, required this.bookModel}) : super(key: key);
 
   @override
@@ -33,8 +33,10 @@ class _BookDetailPageState extends State<BookDetailPage> {
       builder: (context, state) {
         switch (state) {
           case ChapterFetchingLoadingState _:
-            return const Center(
-              child: CircularProgressIndicator(),
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           case ChapterFetchingFailureState _:
             return const Center(
@@ -42,7 +44,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
             );
           case ChapterFetchingSuccessState _:
             final successState = state as ChapterFetchingSuccessState;
-
             return Scaffold(
               extendBodyBehindAppBar: true,
               appBar: AppBar(
@@ -120,7 +121,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                               },
                             )),
                         Container(
-                          height: 300,
+                          height: 350,
                           width: double.infinity,
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
@@ -157,6 +158,44 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                   fontSize: 16,
                                 ),
                               ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height: 30,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: successState.genres.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.white, width: 1),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            successState.genres
+                                                .elementAt(index)
+                                                .name,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -181,11 +220,19 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       itemBuilder: (context, index) {
                         return ListTile(
                           onTap: () {
-                            context.go(Routes.chapterRead,
-                                extra: successState.chapters.elementAt(index));
+                            final pathParameters = {
+                              "bookId": widget.bookModel.id!,
+                              "chapterId": successState.chapters[index].id,
+                            };
+                            // context
+                            //     .pushNamed(Routes.chapterRead, pathParameters: {
+                            //   "bookId": widget.bookModel.id!,
+                            //   "chapterId": successState.chapters[index].id,
+                            // });
+                            context.pushNamed(Routes.chapterRead,
+                                pathParameters: pathParameters);
                           },
-                          title: Text(
-                              successState.chapters.elementAt(index).title),
+                          title: Text(successState.chapters[index].title),
                         );
                       },
                     ),

@@ -1,9 +1,9 @@
-import 'package:fable_cosmic_read_app_fe/data/model/book_model.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:flutter/material.dart';
 
 class ContinueReadBook extends StatelessWidget {
-  final BookModel book;
+  final Book book;
   ContinueReadBook({super.key, required this.book});
 
   @override
@@ -72,6 +72,8 @@ class ContinueReadBook extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             book.name ?? "",
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const Spacer(),

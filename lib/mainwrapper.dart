@@ -20,22 +20,21 @@ class _MainwrapperState extends State<Mainwrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-      body: widget.navigationShell,
-      bottomNavigationBar: CrystalNavigationBar(
-        currentIndex: widget.navigationShell.currentIndex,
-        unselectedItemColor: Colors.white70,
-        selectedItemColor: Colors.pink[400],
-        backgroundColor: Colors.black.withOpacity(0.1),
-        onTap: _goToPage,
-        items: [
-          CrystalNavigationBarItem(icon: Icons.home),
-          CrystalNavigationBarItem(icon: Icons.library_books),
-          CrystalNavigationBarItem(icon: Icons.search),
-          CrystalNavigationBarItem(icon: Icons.settings),
-        ],
-      ),
-    );
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        body: widget.navigationShell,
+        bottomNavigationBar: CrystalNavigationBar(
+          currentIndex: widget.navigationShell.currentIndex,
+          unselectedItemColor: Colors.white70,
+          selectedItemColor: Colors.pink[400],
+          backgroundColor: Colors.black.withOpacity(0.1),
+          onTap: _goToPage,
+          items: [
+            CrystalNavigationBarItem(icon: Icons.home),
+            CrystalNavigationBarItem(icon: Icons.library_books),
+            CrystalNavigationBarItem(icon: Icons.search),
+            CrystalNavigationBarItem(icon: Icons.settings),
+          ],
+        ));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:fable_cosmic_read_app_fe/data/model/book_model.dart';
-import 'package:fable_cosmic_read_app_fe/data/res/BookRepo.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
+import 'package:fable_cosmic_read_app_fe/data/res/book_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'home_event.dart';

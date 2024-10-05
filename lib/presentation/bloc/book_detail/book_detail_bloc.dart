@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:fable_cosmic_read_app_fe/data/model/chapter_model.dart';
-import 'package:fable_cosmic_read_app_fe/data/res/book_detail_repo.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/chapter.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/genre.dart';
+import 'package:fable_cosmic_read_app_fe/data/res/book_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'book_detail_event.dart';
@@ -18,8 +19,9 @@ class BookDetailBloc extends Bloc<BookDetailEvent, BookDetailState> {
       BookDetailInitialEvent event, Emitter<BookDetailState> emit) async {
     emit(ChapterFetchingLoadingState());
     try {
-      final chapters = await BookDetailRepo.fetchChapter(event.bookId);
-      emit(ChapterFetchingSuccessState(chapters));
+      final chapters = await BookRepo.fetchChapter(event.bookId);
+      final genres = await BookRepo.fetchGenre(event.bookId);
+      emit(ChapterFetchingSuccessState(chapters, genres));
     } catch (e) {
       emit(ChapterFetchingFailureState());
     }

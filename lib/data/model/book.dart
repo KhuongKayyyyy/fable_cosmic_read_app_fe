@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-BookModel bookModelFromJson(String str) => BookModel.fromJson(json.decode(str));
+Book bookModelFromJson(String str) => Book.fromJson(json.decode(str));
 
-class BookModel {
+class Book {
   String? id;
   String? name;
   String? thumbnail;
@@ -15,7 +15,7 @@ class BookModel {
   DateTime? updatedAt;
   int? v;
 
-  BookModel({
+  Book({
     this.id,
     this.name,
     this.thumbnail,
@@ -29,8 +29,18 @@ class BookModel {
     this.v,
   });
 
-  factory BookModel.fromJson(Map<String, dynamic> json) {
-    return BookModel(
+  bool isFirstChapter(String chapterId) {
+    if (chapters == null) return false;
+    return chapters?.first == chapterId;
+  }
+
+  bool isLastChapter(String chapterId) {
+    if (chapters == null) return false;
+    return chapters?.last == chapterId;
+  }
+
+  factory Book.fromJson(Map<String, dynamic> json) {
+    return Book(
       id: json['_id'],
       name: json['name'],
       thumbnail: json['thumbnail'],

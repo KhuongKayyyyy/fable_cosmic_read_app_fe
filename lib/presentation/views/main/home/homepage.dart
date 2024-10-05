@@ -1,3 +1,4 @@
+import "package:fable_cosmic_read_app_fe/presentation/views/main/home/book_by_type_section.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -117,7 +118,12 @@ class _HomepageState extends State<Homepage> {
                                     successState.books.elementAt(index);
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 10),
-                                  child: NewComingBook(book: book),
+                                  child: NewComingBook(
+                                    book: book,
+                                    onTap: () {
+                                      homeBloc.add(BookSelectedEvent(book));
+                                    },
+                                  ),
                                 );
                               },
                             ),
@@ -166,93 +172,34 @@ class _HomepageState extends State<Homepage> {
                         ],
                       ),
                       // top manga section
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  "Top manga",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18),
-                                ),
-                                const Spacer(),
-                                TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      "View All",
-                                      style: TextStyle(color: Colors.grey[500]),
-                                    )),
-                              ],
-                            ),
+                      const SizedBox(height: 10),
+                      BookByTypeSection(
+                          books: successState.books,
+                          sectionType: "Top Manga",
+                          onTap: (selectedBook) {
+                            homeBloc.add(BookSelectedEvent(selectedBook));
+                          }),
+                      const SizedBox(height: 10),
+                      BookByTypeSection(
+                          books: successState.books,
+                          sectionType: "Recommend for you",
+                          onTap: (selectedBook) {
+                            homeBloc.add(BookSelectedEvent(selectedBook));
+                          }),
+                      Container(
+                        height: 120,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [
+                              Color.fromARGB(255, 82, 81, 81),
+                              Colors.transparent,
+                            ],
                           ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            height: 280,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: successState.books.length,
-                              itemBuilder: (context, index) {
-                                final book =
-                                    successState.books.elementAt(index);
-                                return Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: BookItem(book: book),
-                                );
-                              },
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                      // recommend for you section
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  "Recommend for you",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18),
-                                ),
-                                const Spacer(),
-                                TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      "View All",
-                                      style: TextStyle(color: Colors.grey[500]),
-                                    )),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            height: 280,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: successState.books.length,
-                              itemBuilder: (context, index) {
-                                final book =
-                                    successState.books.elementAt(index);
-                                return Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: BookItem(
-                                    book: book,
-                                    onTap: () {
-                                      homeBloc.add(BookSelectedEvent(book));
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 150),
                     ],
                   ),
                 ),
