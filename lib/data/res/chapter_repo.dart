@@ -15,7 +15,7 @@ import 'package:fable_cosmic_read_app_fe/data/model/chapter.dart';
 class ChapterRepo {
   static Future<Chapter?> fetchChapter(String chapterId) async {
     var client = HttpClient();
-    Chapter? chapter; // Declare as nullable
+    Chapter? chapter;
 
     try {
       var request =

@@ -2,6 +2,8 @@ import 'package:fable_cosmic_read_app_fe/presentation/bloc/book_detail/book_deta
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:fable_cosmic_read_app_fe/core/router/routes.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/book_detail_heading.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/book_detail_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -105,104 +107,10 @@ class _BookDetailPageState extends State<BookDetailPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Stack(
-                      children: [
-                        SizedBox(
-                            height: 300,
-                            width: double.infinity,
-                            child: Image.network(
-                              widget.bookModel.thumbnail!,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Image.asset(
-                                  AppImage.defaultImage,
-                                  fit: BoxFit.cover,
-                                );
-                              },
-                            )),
-                        Container(
-                          height: 350,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              colors: [
-                                Colors.black,
-                                Colors.transparent,
-                              ],
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 20,
-                          left: 20,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.bookModel.name!,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                widget.bookModel.author!,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: successState.genres.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.white, width: 1),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            successState.genres
-                                                .elementAt(index)
-                                                .name,
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
+                    BookDetailHeading(
+                        book: widget.bookModel, genres: state.genres),
+                    BookDetailInformation(
+                      book: widget.bookModel,
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -224,11 +132,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
                               "bookId": widget.bookModel.id!,
                               "chapterId": successState.chapters[index].id,
                             };
-                            // context
-                            //     .pushNamed(Routes.chapterRead, pathParameters: {
-                            //   "bookId": widget.bookModel.id!,
-                            //   "chapterId": successState.chapters[index].id,
-                            // });
                             context.pushNamed(Routes.chapterRead,
                                 pathParameters: pathParameters);
                           },

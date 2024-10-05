@@ -1,6 +1,5 @@
-import 'package:fable_cosmic_read_app_fe/data/model/chapter.dart';
-import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail_page.dart';
-import 'package:fable_cosmic_read_app_fe/presentation/views/book/chapter_read_page.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/book_detail_page.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/book/chapter_read/chapter_read_page.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/home/homepage.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/library/library.dart';

@@ -93,4 +93,28 @@ class BookRepo {
     }
     return genres;
   }
+
+  static Future<Book?> fetchBook(String bookId) async {
+    var client = HttpClient();
+    Book? book;
+    try {
+      var request =
+          await client.getUrl(Uri.parse(ApiConfig.getBookById(bookId)));
+      var response = await request.close();
+      if (response.statusCode == HttpStatus.ok) {
+        var responseBody = await response.transform(utf8.decoder).join();
+        var decodedJson = jsonDecode(responseBody);
+        if (decodedJson is Map<String, dynamic> &&
+            decodedJson['data'] is Map<String, dynamic>) {
+          var result = decodedJson['data'];
+          book = Book.fromJson(result as Map<String, dynamic>);
+          log('Fetched book: ${book.toString()}');
+        }
+      }
+      return book;
+    } catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
 }

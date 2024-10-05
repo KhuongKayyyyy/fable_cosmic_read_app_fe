@@ -8,6 +8,8 @@ class Book {
   String? thumbnail;
   List<String>? genres;
   int? viewCount;
+  int? likeCount;
+  int? followCount;
   String? author;
   String? status;
   List<String>? chapters;
@@ -21,6 +23,8 @@ class Book {
     this.thumbnail,
     this.genres,
     this.viewCount,
+    this.likeCount,
+    this.followCount,
     this.author,
     this.status,
     this.chapters,
@@ -31,12 +35,28 @@ class Book {
 
   bool isFirstChapter(String chapterId) {
     if (chapters == null) return false;
-    return chapters?.first == chapterId;
+    return chapters?.last == chapterId;
   }
 
   bool isLastChapter(String chapterId) {
     if (chapters == null) return false;
-    return chapters?.last == chapterId;
+    return chapters?.first == chapterId;
+  }
+
+  String getNextChapter(String chapterId) {
+    if (chapters == null) return '';
+    final index = chapters?.indexOf(chapterId);
+    if (index == null || index == -1) return '';
+    if (index == 0) return chapters?.elementAt(index + 1) ?? '';
+    return chapters?.elementAt(index + 1) ?? '';
+  }
+
+  String getPreviousChapter(String chapterId) {
+    if (chapters == null) return '';
+    final index = chapters?.indexOf(chapterId);
+    if (index == null || index == -1) return '';
+    if (index == 0) return chapters?.elementAt(index + 1) ?? '';
+    return chapters?.elementAt(index - 1) ?? '';
   }
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -46,6 +66,8 @@ class Book {
       thumbnail: json['thumbnail'],
       genres: List<String>.from(json['genres'] ?? []),
       viewCount: json['viewCount'] ?? 0,
+      likeCount: json['likeCount'] ?? 0,
+      followCount: json['followCount'] ?? 0,
       author: json['author'],
       status: json['status'],
       chapters: List<String>.from(json['chapters'] ?? []),
@@ -62,6 +84,8 @@ class Book {
       'thumbnail': thumbnail,
       'genres': genres,
       'viewCount': viewCount,
+      'likeCount': likeCount,
+      'followCount': followCount,
       'author': author,
       'status': status,
       'chapters': chapters,

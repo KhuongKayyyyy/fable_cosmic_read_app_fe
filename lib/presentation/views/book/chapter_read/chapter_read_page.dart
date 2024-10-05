@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/chapter.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/chapter_read/chapter_read_bloc.dart';
@@ -20,14 +22,15 @@ class ChapterReadPage extends StatefulWidget {
 
 class _ChapterReadPageState extends State<ChapterReadPage> {
   final ChapterReadBloc chapterReadBloc = ChapterReadBloc();
-  // late final bool _isFirstChapter;
-  // late final bool _isLastChapter;
+  bool _isFirstChapter = false;
+  bool _isLastChapter = false;
   @override
   void initState() {
     super.initState();
     // _isFirstChapter = widget.book.isFirstChapter(widget.chapterId);
     // _isLastChapter = widget.book.isLastChapter(widget.chapterId);
-    chapterReadBloc.add(ChapterReadInitialEvent(widget.chapterId));
+    chapterReadBloc
+        .add(ChapterReadInitialEvent(widget.chapterId, widget.bookId));
   }
 
   @override
@@ -46,7 +49,12 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
               ),
             );
           case ChapterReadSuccessState _:
+          case ChapterReadNextState _:
+          case ChapterReadPreviousState _:
             final successState = state as ChapterReadSuccessState;
+            _isFirstChapter =
+                successState.book.isFirstChapter(widget.chapterId);
+            _isLastChapter = successState.book.isLastChapter(widget.chapterId);
             return Scaffold(
               appBar: AppBar(
                 leading: IconButton(
@@ -83,16 +91,31 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
                         disabledColor: Colors.grey,
-                        onPressed: () {},
-                        // onPressed: _isFirstChapter ? null : () {},
+                        onPressed: _isFirstChapter
+                            ? null
+                            : () {
+                                log(state.book
+                                    .getNextChapter(widget.chapterId));
+                                chapterReadBloc.add(ChapterReadPreviousEvent(
+                                    state.book.getNextChapter(widget.chapterId),
+                                    widget.bookId));
+                              },
                       ),
                       IconButton(
                           onPressed: () {}, icon: const Icon(Icons.menu)),
                       IconButton(
                         icon: const Icon(Icons.arrow_forward),
                         disabledColor: Colors.grey,
-                        onPressed: () {},
-                        // onPressed: _isLastChapter ? null : () {},
+                        onPressed: _isLastChapter
+                            ? null
+                            : () {
+                                log(state.book
+                                    .getPreviousChapter(widget.chapterId));
+                                chapterReadBloc.add(ChapterReadPreviousEvent(
+                                    state.book
+                                        .getPreviousChapter(widget.chapterId),
+                                    widget.bookId));
+                              },
                       ),
                     ],
                   ),

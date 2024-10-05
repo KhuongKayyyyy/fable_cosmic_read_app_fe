@@ -13,5 +13,18 @@ final class ChapterReadFailureState extends ChapterReadState {}
 
 class ChapterReadSuccessState extends ChapterReadState {
   final Chapter chapter;
-  ChapterReadSuccessState(this.chapter);
+  final Book book;
+  ChapterReadSuccessState(this.chapter, this.book);
+}
+
+class ChapterReadNextState extends ChapterReadState {
+  final Chapter chapter;
+  final Book book;
+  ChapterReadNextState(this.chapter, this.book);
+}
+
+class ChapterReadPreviousState extends ChapterReadActionState {
+  final Chapter chapter;
+  final Book book;
+  ChapterReadPreviousState(this.chapter, this.book);
 }

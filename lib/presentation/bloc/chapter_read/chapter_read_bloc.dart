@@ -12,6 +12,8 @@ class ChapterReadBloc extends Bloc<ChapterReadEvent, ChapterReadState> {
   ChapterReadBloc() : super(ChapterReadInitial()) {
     on<ChapterReadEvent>((event, emit) {});
     on<ChapterReadInitialEvent>(chapterReadInitialEvent);
+    on<ChapterReadNextEvent>(chapterReadNextEvent);
+    on<ChapterReadPreviousEvent>(chapterReadPreviousEvent);
   }
 
   Future<void> chapterReadInitialEvent(
@@ -19,7 +21,32 @@ class ChapterReadBloc extends Bloc<ChapterReadEvent, ChapterReadState> {
     emit(ChapterReadLoadingState());
     try {
       final chapter = await ChapterRepo.fetchChapter(event.chapterId);
-      emit(ChapterReadSuccessState(chapter!));
+      final book = await BookRepo.fetchBook(event.bookId);
+      emit(ChapterReadSuccessState(chapter!, book!));
+    } catch (e) {
+      emit(ChapterReadFailureState());
+    }
+  }
+
+  Future<void> chapterReadNextEvent(
+      ChapterReadNextEvent event, Emitter<ChapterReadState> emit) async {
+    emit(ChapterReadLoadingState());
+    try {
+      final chapter = await ChapterRepo.fetchChapter(event.chapterId);
+      final book = await BookRepo.fetchBook(event.bookId);
+      emit(ChapterReadNextState(chapter!, book!));
+    } catch (e) {
+      emit(ChapterReadFailureState());
+    }
+  }
+
+  Future<void> chapterReadPreviousEvent(
+      ChapterReadPreviousEvent event, Emitter<ChapterReadState> emit) async {
+    emit(ChapterReadLoadingState());
+    try {
+      final chapter = await ChapterRepo.fetchChapter(event.chapterId);
+      final book = await BookRepo.fetchBook(event.bookId);
+      emit(ChapterReadPreviousState(chapter!, book!));
     } catch (e) {
       emit(ChapterReadFailureState());
     }

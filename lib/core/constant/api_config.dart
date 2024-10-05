@@ -3,6 +3,10 @@ class ApiConfig {
 
   static const String getAllBook = '${BASE_URL}books';
 
+  static String getBookById(String bookId) {
+    return '${BASE_URL}books/$bookId';
+  }
+
   static String getBookChapters(String bookId) {
     return '${BASE_URL}books/$bookId/chapters';
   }

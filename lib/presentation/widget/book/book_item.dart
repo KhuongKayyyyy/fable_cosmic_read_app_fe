@@ -55,10 +55,16 @@ class BookItem extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               book.name ?? "",
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const Spacer(),
-            Text(book.author ?? ""),
+            Text(
+              book.author ?? "",
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ],
         ),
       ),
