@@ -126,14 +126,38 @@ class _BookDetailPageState extends State<BookDetailPage> {
                               )),
                           Text(
                             " - ${extractNumber(successState.chapters.last.title)}",
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                            style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
-                          const Spacer(),
-                          Text(widget.bookModel.status!,
+                          Text(" (${widget.bookModel.status!})",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: AppTheme.primaryColor,
                               )),
+                          const Spacer(),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    blurRadius: 5,
+                                    offset: const Offset(5, 0),
+                                  ),
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.sort,
+                                color: AppTheme.primaryColor,
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),

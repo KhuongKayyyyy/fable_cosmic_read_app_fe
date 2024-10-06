@@ -5,13 +5,6 @@ import 'dart:developer';
 import 'package:fable_cosmic_read_app_fe/core/constant/api_config.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/chapter.dart';
 
-import 'dart:convert';
-import 'dart:io';
-import 'dart:developer';
-
-import 'package:fable_cosmic_read_app_fe/core/constant/api_config.dart';
-import 'package:fable_cosmic_read_app_fe/data/model/chapter.dart';
-
 class ChapterRepo {
   static Future<Chapter?> fetchChapter(String chapterId) async {
     var client = HttpClient();

@@ -77,7 +77,11 @@ class ContinueReadBook extends StatelessWidget {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const Spacer(),
-          Text(book.author ?? ""),
+          Text(
+            book.author ?? "",
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
         ],
       ),
     );

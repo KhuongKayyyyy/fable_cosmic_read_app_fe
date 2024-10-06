@@ -11,39 +11,54 @@ class LikeFollowSection extends StatefulWidget {
 }
 
 class _LikeFollowSectionState extends State<LikeFollowSection> {
+  get onst => null;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
           children: [
-            const Text("Likes",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-            const Spacer(),
-            Text(
-              widget.book.likeCount.toString(),
-              style: TextStyle(
-                  fontWeight: (FontWeight.w600), color: AppTheme.primaryColor),
+            Expanded(
+              child: Row(
+                children: [
+                  const Text("Follows",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                  const Spacer(),
+                  Text(
+                    widget.book.followCount.toString(),
+                    style: TextStyle(
+                        fontWeight: (FontWeight.w600),
+                        color: AppTheme.primaryColor),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(
-              width: 10,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Text("|",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 22,
+                    color: Colors.grey,
+                  )),
             ),
-            const Text("|",
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 22,
-                  color: Colors.grey,
-                )),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text("Follows",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-            const Spacer(),
-            Text(
-              widget.book.followCount.toString(),
-              style: TextStyle(
-                  fontWeight: (FontWeight.w600), color: AppTheme.primaryColor),
+            Expanded(
+              child: Row(
+                children: [
+                  const Text("Likes",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                  const Spacer(),
+                  Text(
+                    widget.book.likeCount.toString(),
+                    style: TextStyle(
+                        fontWeight: (FontWeight.w600),
+                        color: AppTheme.primaryColor),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -54,9 +69,6 @@ class _LikeFollowSectionState extends State<LikeFollowSection> {
           onTap: () {},
           child: Row(
             children: [
-              const SizedBox(
-                width: 10,
-              ),
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
@@ -131,9 +143,6 @@ class _LikeFollowSectionState extends State<LikeFollowSection> {
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 10,
               ),
             ],
           ),
