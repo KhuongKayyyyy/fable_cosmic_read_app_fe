@@ -22,7 +22,9 @@ class ChapterItem extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                chapter.pages.elementAt(3) ?? "",
+                chapter.pages.length > 3
+                    ? chapter.pages[2]
+                    : chapter.pages.last,
                 fit: BoxFit.cover,
                 loadingBuilder: (BuildContext context, Widget child,
                     ImageChunkEvent? loadingProgress) {

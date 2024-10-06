@@ -112,10 +112,10 @@ class _HomepageState extends State<Homepage> {
                             height: 150,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: successState.books.length,
+                              itemCount: successState.newBooks.length,
                               itemBuilder: (context, index) {
                                 final book =
-                                    successState.books.elementAt(index);
+                                    successState.newBooks.elementAt(index);
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: NewComingBook(
@@ -158,10 +158,10 @@ class _HomepageState extends State<Homepage> {
                             height: 280,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: successState.books.length,
+                              itemCount: successState.recommendedBooks.length,
                               itemBuilder: (context, index) {
-                                final book =
-                                    successState.books.elementAt(index);
+                                final book = successState.recommendedBooks
+                                    .elementAt(index);
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: ContinueReadBook(book: book),
@@ -174,14 +174,14 @@ class _HomepageState extends State<Homepage> {
                       // top manga section
                       const SizedBox(height: 10),
                       BookByTypeSection(
-                          books: successState.books,
+                          books: successState.topBooks,
                           sectionType: "Top Manga",
                           onTap: (selectedBook) {
                             homeBloc.add(BookSelectedEvent(selectedBook));
                           }),
                       const SizedBox(height: 10),
                       BookByTypeSection(
-                          books: successState.books,
+                          books: successState.newBooks,
                           sectionType: "Recommend for you",
                           onTap: (selectedBook) {
                             homeBloc.add(BookSelectedEvent(selectedBook));

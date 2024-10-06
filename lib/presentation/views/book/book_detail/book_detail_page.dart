@@ -129,6 +129,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
+                          Text(successState.chapters.length.toString()),
                           const Text("Chapters",
                               style: TextStyle(
                                 fontSize: 20,

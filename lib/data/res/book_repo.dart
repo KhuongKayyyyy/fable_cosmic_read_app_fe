@@ -7,12 +7,13 @@ import 'package:fable_cosmic_read_app_fe/data/model/chapter.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/genre.dart';
 
 class BookRepo {
-  static Future<List<Book>> fetchBooks() async {
+  static Future<List<Book>> fetchBooks(int fetchPage) async {
     var client = HttpClient();
     List<Book> books = [];
 
     try {
-      var request = await client.getUrl(Uri.parse(ApiConfig.getAllBook));
+      var request =
+          await client.getUrl(Uri.parse(ApiConfig.getAllBooks(fetchPage)));
       var response = await request.close();
 
       if (response.statusCode == HttpStatus.ok) {
@@ -59,6 +60,7 @@ class BookRepo {
           log('Fetched chapters: ${chapters.toString()}');
         }
       }
+      log(chapters.toString());
     } catch (e) {
       log(e.toString());
       return [];

@@ -19,8 +19,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       HomeInitialEvent event, Emitter<HomeState> emit) async {
     emit(BookFetchingLoadingState());
     try {
-      final books = await BookRepo.fetchBooks();
-      emit(BookFetchingSuccessState(books));
+      final newBooks = await BookRepo.fetchBooks(1);
+      final topBooks = await BookRepo.fetchBooks(2);
+      final recommendedBooks = await BookRepo.fetchBooks(3);
+      emit(BookFetchingSuccessState(newBooks, topBooks, recommendedBooks));
     } catch (e) {
       emit(BookFetchingFailureState());
     }
