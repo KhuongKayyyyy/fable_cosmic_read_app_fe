@@ -1,3 +1,4 @@
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
@@ -20,21 +21,52 @@ class _MainwrapperState extends State<Mainwrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        body: widget.navigationShell,
-        bottomNavigationBar: CrystalNavigationBar(
-          currentIndex: widget.navigationShell.currentIndex,
-          unselectedItemColor: Colors.white70,
-          selectedItemColor: Colors.pink[400],
-          backgroundColor: Colors.black.withOpacity(0.1),
-          onTap: _goToPage,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      body: widget.navigationShell,
+      // bottomNavigationBar: CrystalNavigationBar(
+      //   currentIndex: widget.navigationShell.currentIndex,
+      //   unselectedItemColor: Colors.white70,
+      //   selectedItemColor: Colors.pink[400],
+      //   backgroundColor: Colors.black.withOpacity(0.1),
+      //   onTap: _goToPage,
+      //   items: [
+      //     CrystalNavigationBarItem(icon: Icons.home),
+      //     CrystalNavigationBarItem(icon: Icons.library_books),
+      //     CrystalNavigationBarItem(icon: Icons.search),
+      //     CrystalNavigationBarItem(icon: Icons.settings),
+      //   ],
+      // )
+      bottomNavigationBar: Container(
+        height: 90,
+        child: FlashyTabBar(
+          selectedIndex: widget.navigationShell.currentIndex,
+          showElevation: true,
           items: [
-            CrystalNavigationBarItem(icon: Icons.home),
-            CrystalNavigationBarItem(icon: Icons.library_books),
-            CrystalNavigationBarItem(icon: Icons.search),
-            CrystalNavigationBarItem(icon: Icons.settings),
+            FlashyTabBarItem(
+              icon: const Icon(Icons.home),
+              title: const Text('Home'),
+              activeColor: Colors.pink,
+            ),
+            FlashyTabBarItem(
+              icon: const Icon(Icons.library_books),
+              title: const Text('Library'),
+              activeColor: Colors.pink,
+            ),
+            FlashyTabBarItem(
+              icon: const Icon(Icons.search),
+              title: const Text('Search'),
+              activeColor: Colors.pink,
+            ),
+            FlashyTabBarItem(
+              icon: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              activeColor: Colors.pink,
+            ),
           ],
-        ));
+          onItemSelected: _goToPage,
+        ),
+      ),
+    );
   }
 }
