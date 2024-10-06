@@ -14,5 +14,6 @@ class ChapterFetchingFailureState extends BookDetailState {}
 class ChapterFetchingSuccessState extends BookDetailState {
   final List<Chapter> chapters;
   final List<Genre> genres;
-  ChapterFetchingSuccessState(this.chapters, this.genres);
+  final bool showAllChapters;
+  ChapterFetchingSuccessState(this.chapters, this.genres, this.showAllChapters);
 }

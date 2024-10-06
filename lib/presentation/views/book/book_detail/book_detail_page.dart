@@ -1,7 +1,6 @@
 import 'package:fable_cosmic_read_app_fe/core/theme/app_theme.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/book_detail/book_detail_bloc.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
-import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:fable_cosmic_read_app_fe/core/router/routes.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/book_detail_heading.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/book_detail_information.dart';
@@ -29,6 +28,12 @@ class _BookDetailPageState extends State<BookDetailPage> {
   }
 
   @override
+  void dispose() {
+    bookDetailBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer(
       listener: (context, state) {},
@@ -49,6 +54,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
             );
           case ChapterFetchingSuccessState _:
             final successState = state as ChapterFetchingSuccessState;
+            final chapterToShow = successState.chapters.length < 5
+                ? successState.chapters
+                : successState.showAllChapters
+                    ? successState.chapters
+                    : successState.chapters.take(5).toList();
             return Scaffold(
               extendBodyBehindAppBar: true,
               appBar: AppBar(
@@ -168,16 +178,16 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,
-                      itemCount: successState.chapters.take(5).length,
+                      itemCount: chapterToShow.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(5),
                           child: ChapterItem(
-                            chapter: successState.chapters.elementAt(index),
+                            chapter: chapterToShow.elementAt(index),
                             onTap: () {
                               final pathParameters = {
                                 "bookId": widget.bookModel.id!,
-                                "chapterId": successState.chapters[index].id,
+                                "chapterId": chapterToShow.elementAt(index).id,
                               };
                               context.pushNamed(Routes.chapterRead,
                                   pathParameters: pathParameters);
@@ -186,8 +196,20 @@ class _BookDetailPageState extends State<BookDetailPage> {
                         );
                       },
                     ),
-                    const SizedBox(
-                      height: 10,
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          bookDetailBloc.add(ToggleChapterViewEvent());
+                        },
+                        child: Text(
+                          successState.showAllChapters
+                              ? "Show Less"
+                              : "Show All",
+                          style: TextStyle(
+                              color: AppTheme.primaryColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10),

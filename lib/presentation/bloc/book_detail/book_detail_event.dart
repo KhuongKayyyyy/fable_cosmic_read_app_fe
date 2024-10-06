@@ -7,3 +7,5 @@ class BookDetailInitialEvent extends BookDetailEvent {
   final String bookId;
   BookDetailInitialEvent(this.bookId);
 }
+
+final class ToggleChapterViewEvent extends BookDetailEvent {}

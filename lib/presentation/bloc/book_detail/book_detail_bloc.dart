@@ -13,6 +13,7 @@ class BookDetailBloc extends Bloc<BookDetailEvent, BookDetailState> {
       // TODO: implement event handler
     });
     on<BookDetailInitialEvent>(bookDetailInitialEvent);
+    on<ToggleChapterViewEvent>(toggleChapterViewEvent);
   }
 
   Future<void> bookDetailInitialEvent(
@@ -21,9 +22,19 @@ class BookDetailBloc extends Bloc<BookDetailEvent, BookDetailState> {
     try {
       final chapters = await BookRepo.fetchChapter(event.bookId);
       final genres = await BookRepo.fetchGenre(event.bookId);
-      emit(ChapterFetchingSuccessState(chapters, genres));
+      final bool showAllChapters = false;
+      emit(ChapterFetchingSuccessState(chapters, genres, showAllChapters));
     } catch (e) {
       emit(ChapterFetchingFailureState());
+    }
+  }
+
+  void toggleChapterViewEvent(
+      ToggleChapterViewEvent event, Emitter<BookDetailState> emit) {
+    if (state is ChapterFetchingSuccessState) {
+      final currentState = state as ChapterFetchingSuccessState;
+      emit(ChapterFetchingSuccessState(currentState.chapters,
+          currentState.genres, !currentState.showAllChapters));
     }
   }
 }

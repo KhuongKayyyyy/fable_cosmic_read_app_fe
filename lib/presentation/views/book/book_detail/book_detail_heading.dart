@@ -1,4 +1,5 @@
 import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
+import 'package:fable_cosmic_read_app_fe/core/theme/app_theme.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/genre.dart';
 import 'package:flutter/material.dart';
@@ -48,8 +49,8 @@ class BookDetailHeading extends StatelessWidget {
             children: [
               Text(
                 book.name!,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: AppTheme.primaryColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -68,10 +69,9 @@ class BookDetailHeading extends StatelessWidget {
                 height: 10,
               ),
               SizedBox(
-                height: 30,
+                height: 40, // Increase the height to allow more content
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: genres.length,
                   itemBuilder: (context, index) {
@@ -80,7 +80,8 @@ class BookDetailHeading extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: 1),
+                          border: Border.all(
+                              color: AppTheme.primaryColor, width: 1),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Center(
@@ -96,7 +97,7 @@ class BookDetailHeading extends StatelessWidget {
                     );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),
