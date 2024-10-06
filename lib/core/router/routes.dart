@@ -8,4 +8,5 @@ class Routes {
   // detail page
   static const String bookDetail = '/bookDetail';
   static const String chapterRead = '/chapterRead';
+  static const String bookListView = '/bookList';
 }

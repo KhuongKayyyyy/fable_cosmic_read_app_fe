@@ -2,6 +2,7 @@ import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/boo
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/chapter_read/chapter_read_page.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/home/homepage.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/main/home/view_all_book/view_all_book.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/library/library.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/search/search.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/setting/setting.dart';
@@ -80,6 +81,22 @@ class AppNavigation {
                 bookModel: book,
               );
             }),
+        GoRoute(
+          name: Routes.bookListView,
+          path: Routes.bookListView,
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            final Map<String, dynamic> dataPackage =
+                state.extra as Map<String, dynamic>;
+            final String bookListName =
+                dataPackage["bookListName"] as String? ?? "Currently null";
+            final List<Book> books = List<Book>.from(dataPackage["books"]);
+            return ViewAllBook(
+              bookListName: bookListName,
+              books: books,
+            );
+          },
+        ),
         GoRoute(
             path: "${Routes.chapterRead}/:bookId/:chapterId",
             name: Routes.chapterRead,

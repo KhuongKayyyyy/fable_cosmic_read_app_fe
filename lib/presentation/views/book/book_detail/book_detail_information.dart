@@ -47,18 +47,6 @@ class _BookDetailInformationState extends State<BookDetailInformation> {
               )
             ],
           ),
-          // status
-          // Row(
-          //   children: [
-          //     const Text("Status",
-          //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-          //     const Spacer(),
-          //     Text(
-          //       widget.book.status!,
-          //       style: const TextStyle(fontWeight: FontWeight.w600),
-          //     ),
-          //   ],
-          // ),
           // statistics
           Row(
             children: [

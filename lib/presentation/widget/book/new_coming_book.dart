@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 class NewComingBook extends StatelessWidget {
   final VoidCallback? onTap;
   final Book book;
+
   NewComingBook({super.key, required this.book, this.onTap});
 
   @override
@@ -13,7 +14,7 @@ class NewComingBook extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 350,
+        width: 400,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
@@ -25,25 +26,31 @@ class NewComingBook extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Positioned(
-              left: 0,
-              bottom: 0,
+            Align(
+              alignment: Alignment
+                  .bottomCenter, // Aligns the text container at the bottom center
               child: Container(
-                width: 350,
+                width: double
+                    .infinity, // Ensure the width fills the entire container
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10)),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(
+                        10), // Correctly apply the border radius
+                  ),
                   color: Colors.black.withOpacity(0.5),
                 ),
                 child: Center(
-                  // Center the text within the container
-                  child: Text(book.name ?? "",
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
+                  // Center the text horizontally and vertically
+                  child: Text(
+                    book.name ?? "",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             )

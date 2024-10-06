@@ -36,6 +36,9 @@ dependencies:
   go_router: ^10.1.2
   intl: ^0.17.0
   flashy_tab_bar2: ^0.0.10
+  smooth_page_indicator: ^1.2.0+3
+
+
 
 
 

@@ -22,3 +22,9 @@ class NavigatedToDetailState extends HomeActionState {
   final Book book;
   NavigatedToDetailState(this.book);
 }
+
+class NavigateToViewAllBookState extends HomeActionState {
+  final List<Book> books;
+  final String bookListName;
+  NavigateToViewAllBookState(this.books, this.bookListName);
+}

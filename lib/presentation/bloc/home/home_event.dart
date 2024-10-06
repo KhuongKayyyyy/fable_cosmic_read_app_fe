@@ -9,3 +9,9 @@ class BookSelectedEvent extends HomeEvent {
   final Book book;
   BookSelectedEvent(this.book);
 }
+
+class BookListSelectedEvent extends HomeEvent {
+  final List<Book> books;
+  final String bookListName;
+  BookListSelectedEvent(this.books, this.bookListName);
+}
