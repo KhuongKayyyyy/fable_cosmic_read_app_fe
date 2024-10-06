@@ -186,20 +186,21 @@ class _HomepageState extends State<Homepage> {
                           onTap: (selectedBook) {
                             homeBloc.add(BookSelectedEvent(selectedBook));
                           }),
-                      Container(
-                        height: 120,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                            colors: [
-                              Color.fromARGB(255, 82, 81, 81),
-                              Colors.transparent,
-                            ],
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   height: 120,
+                      //   width: double.infinity,
+                      //   decoration: const BoxDecoration(
+                      //     gradient: LinearGradient(
+                      //       begin: Alignment.bottomCenter,
+                      //       end: Alignment.topCenter,
+                      //       colors: [
+                      //         Color.fromARGB(255, 82, 81, 81),
+                      //         Colors.transparent,
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      const SizedBox(height: 110),
                     ],
                   ),
                 ),

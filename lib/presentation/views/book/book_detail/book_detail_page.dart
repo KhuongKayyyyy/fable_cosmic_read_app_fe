@@ -36,7 +36,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is NavigateToChapterReadState) {
+          final pathParameters = {
+            "bookId": widget.bookModel.id!,
+            "chapterId": state.chapter.id,
+          };
+          context.pushNamed(Routes.chapterRead, pathParameters: pathParameters);
+        }
+      },
       bloc: bookDetailBloc,
       listenWhen: (previous, current) => current is BookDetailActionState,
       buildWhen: (previous, current) => current is! BookDetailActionState,
@@ -129,7 +137,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
-                          Text(successState.chapters.length.toString()),
                           const Text("Chapters",
                               style: TextStyle(
                                 fontSize: 20,
@@ -186,12 +193,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           child: ChapterItem(
                             chapter: chapterToShow.elementAt(index),
                             onTap: () {
-                              final pathParameters = {
-                                "bookId": widget.bookModel.id!,
-                                "chapterId": chapterToShow.elementAt(index).id,
-                              };
-                              context.pushNamed(Routes.chapterRead,
-                                  pathParameters: pathParameters);
+                              bookDetailBloc.add(ChapterSelectedEvent(
+                                  chapterToShow.elementAt(index)));
                             },
                           ),
                         );

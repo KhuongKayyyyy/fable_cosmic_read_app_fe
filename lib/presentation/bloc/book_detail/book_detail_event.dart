@@ -9,3 +9,8 @@ class BookDetailInitialEvent extends BookDetailEvent {
 }
 
 final class ToggleChapterViewEvent extends BookDetailEvent {}
+
+final class ChapterSelectedEvent extends BookDetailEvent {
+  final Chapter chapter;
+  ChapterSelectedEvent(this.chapter);
+}

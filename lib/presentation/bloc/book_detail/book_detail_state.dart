@@ -17,3 +17,8 @@ class ChapterFetchingSuccessState extends BookDetailState {
   final bool showAllChapters;
   ChapterFetchingSuccessState(this.chapters, this.genres, this.showAllChapters);
 }
+
+class NavigateToChapterReadState extends BookDetailActionState {
+  final Chapter chapter;
+  NavigateToChapterReadState(this.chapter);
+}

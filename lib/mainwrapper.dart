@@ -42,6 +42,12 @@ class _MainwrapperState extends State<Mainwrapper> {
         child: FlashyTabBar(
           selectedIndex: widget.navigationShell.currentIndex,
           showElevation: true,
+          shadows: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 20,
+            ),
+          ],
           items: [
             FlashyTabBarItem(
               icon: const Icon(Icons.home),

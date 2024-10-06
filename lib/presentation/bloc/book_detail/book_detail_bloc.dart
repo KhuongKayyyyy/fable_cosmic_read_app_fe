@@ -14,6 +14,7 @@ class BookDetailBloc extends Bloc<BookDetailEvent, BookDetailState> {
     });
     on<BookDetailInitialEvent>(bookDetailInitialEvent);
     on<ToggleChapterViewEvent>(toggleChapterViewEvent);
+    on<ChapterSelectedEvent>(chapterSelectedEvent);
   }
 
   Future<void> bookDetailInitialEvent(
@@ -36,5 +37,10 @@ class BookDetailBloc extends Bloc<BookDetailEvent, BookDetailState> {
       emit(ChapterFetchingSuccessState(currentState.chapters,
           currentState.genres, !currentState.showAllChapters));
     }
+  }
+
+  Future<void> chapterSelectedEvent(
+      ChapterSelectedEvent event, Emitter<BookDetailState> emit) async {
+    emit(NavigateToChapterReadState(event.chapter));
   }
 }
