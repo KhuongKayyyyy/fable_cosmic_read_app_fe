@@ -1,3 +1,5 @@
+import 'package:fable_cosmic_read_app_fe/presentation/views/authentication/login.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/authentication/register.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/book_detail_page.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/chapter_read/chapter_read_page.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
@@ -108,6 +110,22 @@ class AppNavigation {
                 chapterId: chapterId,
                 bookId: bookId,
               );
-            })
+            }),
+        GoRoute(
+          path: Routes.login,
+          name: Routes.login,
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            return const LoginPage();
+          },
+        ),
+        GoRoute(
+          path: Routes.register,
+          name: Routes.register,
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            return const RegisterPage();
+          },
+        )
       ]);
 }

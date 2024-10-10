@@ -1,4 +1,9 @@
 class Routes {
+  // authentication
+  static const String login = '/login';
+  static const String register = '/register';
+
+  // main page
   static const String mainWrapper = '/mainWrapper';
   static const String home = '/home';
   static const String library = '/library';

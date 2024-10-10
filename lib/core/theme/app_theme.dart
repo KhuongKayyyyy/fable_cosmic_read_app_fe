@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   // static Color primaryColor = const Color(0xFFFFD1DC);
-  static Color primaryColor = const Color(0xFFc2c16e);
+  static Color primaryColor = const Color(0xFFd4d585);
   static Color secondaryColor = const Color.fromRGBO(226, 225, 168, 1);
   static Color iconColor = const Color(0xFFa1a159);
   static Color success = const Color(0xFF5BA092);
