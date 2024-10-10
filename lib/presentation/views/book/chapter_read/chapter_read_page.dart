@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/chapter.dart';
+import 'package:fable_cosmic_read_app_fe/data/res/book_repo.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/chapter_read/chapter_read_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -98,13 +99,16 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
                                   widget.bookId,
                                 ));
                               },
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_back,
                           size: 30,
+                          color: _isFirstChapter ? Colors.grey : Colors.black,
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          _showChaperList(context, successState.book);
+                        },
                         child: const Icon(
                           Icons.menu,
                           size: 30,
@@ -123,9 +127,10 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
                                   widget.bookId,
                                 ));
                               },
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_forward,
                           size: 30,
+                          color: _isLastChapter ? Colors.grey : Colors.black,
                         ),
                       ),
                     ],
@@ -148,5 +153,54 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
         }
       },
     );
+  }
+
+  void _showChaperList(BuildContext context, Book book) async {
+    final chapterList = await BookRepo.fetchBookChapters(book.id!);
+    showModalBottomSheet(
+        // constraints: const BoxConstraints(
+        //   maxWidth: 300,
+        // ),
+        // ignore: use_build_context_synchronously
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: const Text(
+                  "Chapter List",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 410,
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: chapterList.length,
+                  itemBuilder: (context, index) {
+                    final chapter = chapterList[index];
+                    return ListTile(
+                      title: Text(
+                        chapter.title,
+                        style: const TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      onTap: () {
+                        chapterReadBloc.add(ChapterReadInitialEvent(
+                          chapter.id,
+                          book.id!,
+                        ));
+                        Navigator.of(context).pop();
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              )
+            ],
+          );
+        });
   }
 }
