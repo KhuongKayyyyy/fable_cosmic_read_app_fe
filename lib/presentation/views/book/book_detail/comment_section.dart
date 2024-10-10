@@ -10,7 +10,7 @@ class CommentSection extends StatefulWidget {
 class _CommentSectionState extends State<CommentSection> {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [],
     );
   }

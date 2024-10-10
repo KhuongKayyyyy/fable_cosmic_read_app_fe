@@ -20,4 +20,29 @@ class ApiConfig {
   static String getChapterById(String chapterId) {
     return '${BASE_URL}chapters/$chapterId';
   }
+
+  static String getBookByGenre(String genreId) {
+    return '${BASE_URL}books/genre/$genreId';
+  }
+
+  static String getAllGenres(int? page, int? size, String? searchString) {
+    String url = '${BASE_URL}genres';
+    List<String> queryParams = [];
+
+    if (page != null) {
+      queryParams.add('page=$page');
+    }
+    if (size != null) {
+      queryParams.add('size=$size');
+    }
+    if (searchString != null && searchString.isNotEmpty) {
+      queryParams.add('search=$searchString');
+    }
+
+    if (queryParams.isNotEmpty) {
+      url += '?${queryParams.join('&')}';
+    }
+
+    return url;
+  }
 }

@@ -12,7 +12,7 @@ import 'package:go_router/go_router.dart';
 
 class BookDetailPage extends StatefulWidget {
   final Book bookModel;
-  const BookDetailPage({Key? key, required this.bookModel}) : super(key: key);
+  const BookDetailPage({super.key, required this.bookModel});
 
   @override
   _BookDetailPageState createState() => _BookDetailPageState();
@@ -61,7 +61,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
               child: Text("Failed to fetch chapters"),
             );
           case ChapterFetchingSuccessState _:
-            final successState = state as ChapterFetchingSuccessState;
+            final successState = state;
             final chapterToShow = successState.chapters.length < 5
                 ? successState.chapters
                 : successState.showAllChapters

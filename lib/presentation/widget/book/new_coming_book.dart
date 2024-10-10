@@ -7,7 +7,7 @@ class NewComingBook extends StatelessWidget {
   final VoidCallback? onTap;
   final Book book;
 
-  NewComingBook({super.key, required this.book, this.onTap});
+  const NewComingBook({super.key, required this.book, this.onTap});
 
   @override
   Widget build(BuildContext context) {

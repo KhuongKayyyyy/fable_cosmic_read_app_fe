@@ -37,7 +37,7 @@ class _MainwrapperState extends State<Mainwrapper> {
       //     CrystalNavigationBarItem(icon: Icons.settings),
       //   ],
       // )
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         height: 90,
         child: FlashyTabBar(
           selectedIndex: widget.navigationShell.currentIndex,

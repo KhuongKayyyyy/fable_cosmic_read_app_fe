@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/widget/book/book_item.dart';
 import 'package:flutter/material.dart';

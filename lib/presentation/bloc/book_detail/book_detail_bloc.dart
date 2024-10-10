@@ -21,9 +21,9 @@ class BookDetailBloc extends Bloc<BookDetailEvent, BookDetailState> {
       BookDetailInitialEvent event, Emitter<BookDetailState> emit) async {
     emit(ChapterFetchingLoadingState());
     try {
-      final chapters = await BookRepo.fetchChapter(event.bookId);
-      final genres = await BookRepo.fetchGenre(event.bookId);
-      final bool showAllChapters = false;
+      final chapters = await BookRepo.fetchBookChapters(event.bookId);
+      final genres = await BookRepo.fetchBookGenre(event.bookId);
+      const bool showAllChapters = false;
       emit(ChapterFetchingSuccessState(chapters, genres, showAllChapters));
     } catch (e) {
       emit(ChapterFetchingFailureState());

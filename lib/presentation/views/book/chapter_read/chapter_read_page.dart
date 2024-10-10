@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 class ChapterReadPage extends StatefulWidget {
   final String chapterId;
   final String bookId;
-  ChapterReadPage({
+  const ChapterReadPage({
     super.key,
     required this.chapterId,
     required this.bookId,
@@ -24,20 +24,19 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
   final ChapterReadBloc chapterReadBloc = ChapterReadBloc();
   bool _isFirstChapter = false;
   bool _isLastChapter = false;
+
   @override
   void initState() {
     super.initState();
-    // _isFirstChapter = widget.book.isFirstChapter(widget.chapterId);
-    // _isLastChapter = widget.book.isLastChapter(widget.chapterId);
     chapterReadBloc
         .add(ChapterReadInitialEvent(widget.chapterId, widget.bookId));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer(
-      listener: (context, state) {},
+    return BlocConsumer<ChapterReadBloc, ChapterReadState>(
       bloc: chapterReadBloc,
+      listener: (context, state) {},
       listenWhen: (previous, current) => current is ChapterReadActionState,
       buildWhen: (previous, current) => current is! ChapterReadActionState,
       builder: (context, state) {
@@ -49,12 +48,11 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
               ),
             );
           case ChapterReadSuccessState _:
-          case ChapterReadNextState _:
-          case ChapterReadPreviousState _:
             final successState = state as ChapterReadSuccessState;
             _isFirstChapter =
-                successState.book.isFirstChapter(widget.chapterId);
-            _isLastChapter = successState.book.isLastChapter(widget.chapterId);
+                successState.book.isFirstChapter(successState.chapter.id);
+            _isLastChapter =
+                successState.book.isLastChapter(successState.chapter.id);
             return Scaffold(
               appBar: AppBar(
                 leading: IconButton(
@@ -73,7 +71,7 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
-                          children: state.chapter.pages.map((pageUrl) {
+                          children: successState.chapter.pages.map((pageUrl) {
                             return Image.network(pageUrl);
                           }).toList(),
                         ),
@@ -88,34 +86,47 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        disabledColor: Colors.grey,
-                        onPressed: _isFirstChapter
+                      GestureDetector(
+                        onTap: _isFirstChapter
                             ? null
                             : () {
-                                log(state.book
-                                    .getNextChapter(widget.chapterId));
+                                final prevChapterId = successState.book
+                                    .getNextChapter(successState.chapter.id);
+                                log('Previous Chapter ID: $prevChapterId');
                                 chapterReadBloc.add(ChapterReadPreviousEvent(
-                                    state.book.getNextChapter(widget.chapterId),
-                                    widget.bookId));
+                                  prevChapterId,
+                                  widget.bookId,
+                                ));
                               },
+                        child: const Icon(
+                          Icons.arrow_back,
+                          size: 30,
+                        ),
                       ),
-                      IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.menu)),
-                      IconButton(
-                        icon: const Icon(Icons.arrow_forward),
-                        disabledColor: Colors.grey,
-                        onPressed: _isLastChapter
+                      GestureDetector(
+                        onTap: () {},
+                        child: const Icon(
+                          Icons.menu,
+                          size: 30,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: _isLastChapter
                             ? null
                             : () {
-                                log(state.book
-                                    .getPreviousChapter(widget.chapterId));
-                                chapterReadBloc.add(ChapterReadPreviousEvent(
-                                    state.book
-                                        .getPreviousChapter(widget.chapterId),
-                                    widget.bookId));
+                                final nextChapterId = successState.book
+                                    .getPreviousChapter(
+                                        successState.chapter.id);
+                                log('Next Chapter ID: $nextChapterId');
+                                chapterReadBloc.add(ChapterReadNextEvent(
+                                  nextChapterId,
+                                  widget.bookId,
+                                ));
                               },
+                        child: const Icon(
+                          Icons.arrow_forward,
+                          size: 30,
+                        ),
                       ),
                     ],
                   ),

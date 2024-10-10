@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ContinueReadBook extends StatelessWidget {
   final Book book;
-  ContinueReadBook({super.key, required this.book});
+  const ContinueReadBook({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class ContinueReadBook extends StatelessWidget {
                 bottom: 10,
                 right: 10,
                 child: Container(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: Colors.black.withOpacity(0.3),
@@ -74,7 +74,7 @@ class ContinueReadBook extends StatelessWidget {
             book.name ?? "",
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const Spacer(),
           Text(

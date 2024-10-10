@@ -23,7 +23,7 @@ class _BookItemLargeState extends State<BookItemLarge> {
 
   Future<void> _fetchGenres() async {
     // Fetch genres asynchronously and update the state
-    List<Genre>? genres = await BookRepo.fetchGenre(widget.book.id!);
+    List<Genre>? genres = await BookRepo.fetchBookGenre(widget.book.id!);
     setState(() {
       _genres = genres;
     });

@@ -10,43 +10,40 @@ part 'chapter_read_state.dart';
 
 class ChapterReadBloc extends Bloc<ChapterReadEvent, ChapterReadState> {
   ChapterReadBloc() : super(ChapterReadInitial()) {
-    on<ChapterReadEvent>((event, emit) {});
-    on<ChapterReadInitialEvent>(chapterReadInitialEvent);
-    on<ChapterReadNextEvent>(chapterReadNextEvent);
-    on<ChapterReadPreviousEvent>(chapterReadPreviousEvent);
+    on<ChapterReadInitialEvent>(_onChapterReadInitialEvent);
+    on<ChapterReadNextEvent>(_onChapterReadNextEvent);
+    on<ChapterReadPreviousEvent>(_onChapterReadPreviousEvent);
   }
 
-  Future<void> chapterReadInitialEvent(
+  Future<void> _onChapterReadInitialEvent(
       ChapterReadInitialEvent event, Emitter<ChapterReadState> emit) async {
     emit(ChapterReadLoadingState());
     try {
       final chapter = await ChapterRepo.fetchChapter(event.chapterId);
-      final book = await BookRepo.fetchBook(event.bookId);
+      final book = await BookRepo.fetchBookById(event.bookId);
       emit(ChapterReadSuccessState(chapter!, book!));
     } catch (e) {
       emit(ChapterReadFailureState());
     }
   }
 
-  Future<void> chapterReadNextEvent(
+  Future<void> _onChapterReadNextEvent(
       ChapterReadNextEvent event, Emitter<ChapterReadState> emit) async {
-    emit(ChapterReadLoadingState());
-    try {
-      final chapter = await ChapterRepo.fetchChapter(event.chapterId);
-      final book = await BookRepo.fetchBook(event.bookId);
-      emit(ChapterReadNextState(chapter!, book!));
-    } catch (e) {
-      emit(ChapterReadFailureState());
-    }
+    await _loadChapter(event.chapterId, event.bookId, emit);
   }
 
-  Future<void> chapterReadPreviousEvent(
+  Future<void> _onChapterReadPreviousEvent(
       ChapterReadPreviousEvent event, Emitter<ChapterReadState> emit) async {
+    await _loadChapter(event.chapterId, event.bookId, emit);
+  }
+
+  Future<void> _loadChapter(
+      String chapterId, String bookId, Emitter<ChapterReadState> emit) async {
     emit(ChapterReadLoadingState());
     try {
-      final chapter = await ChapterRepo.fetchChapter(event.chapterId);
-      final book = await BookRepo.fetchBook(event.bookId);
-      emit(ChapterReadPreviousState(chapter!, book!));
+      final chapter = await ChapterRepo.fetchChapter(chapterId);
+      final book = await BookRepo.fetchBookById(bookId);
+      emit(ChapterReadSuccessState(chapter!, book!));
     } catch (e) {
       emit(ChapterReadFailureState());
     }

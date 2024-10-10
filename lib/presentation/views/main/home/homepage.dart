@@ -49,12 +49,12 @@ class _HomepageState extends State<Homepage> {
       buildWhen: (previous, current) => current is! HomeActionState,
       builder: (context, state) {
         switch (state) {
-          case BookFetchingLoadingState _:
+          case DataFetchingLoadingState _:
             return const Center(
               child: CircularProgressIndicator(),
             );
-          case BookFetchingSuccessState _:
-            final successState = state as BookFetchingSuccessState;
+          case DataFetchingSuccessState _:
+            final successState = state;
             return Scaffold(
               appBar: AppBar(
                 // backgroundColor: Colors.white.withOpacity(0.1),
@@ -144,7 +144,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             );
-          case BookFetchingFailureState _:
+          case DataFetchingFailureState _:
             return const Center(
               child: Text("Error fetching books"),
             );

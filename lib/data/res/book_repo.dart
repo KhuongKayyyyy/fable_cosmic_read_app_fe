@@ -39,7 +39,7 @@ class BookRepo {
     }
   }
 
-  static Future<List<Chapter>> fetchChapter(String bookId) async {
+  static Future<List<Chapter>> fetchBookChapters(String bookId) async {
     var client = HttpClient();
     List<Chapter> chapters = [];
     try {
@@ -68,7 +68,7 @@ class BookRepo {
     return chapters;
   }
 
-  static Future<List<Genre>> fetchGenre(String bookId) async {
+  static Future<List<Genre>> fetchBookGenre(String bookId) async {
     var client = HttpClient();
     List<Genre> genres = [];
     try {
@@ -96,7 +96,7 @@ class BookRepo {
     return genres;
   }
 
-  static Future<Book?> fetchBook(String bookId) async {
+  static Future<Book?> fetchBookById(String bookId) async {
     var client = HttpClient();
     Book? book;
     try {
@@ -117,6 +117,34 @@ class BookRepo {
     } catch (e) {
       log(e.toString());
       return null;
+    }
+  }
+
+  static Future<List<Book>> fetchBooksByGenre(String genreId) async {
+    var client = HttpClient();
+    List<Book> books = [];
+    try {
+      var request =
+          await client.getUrl(Uri.parse(ApiConfig.getBookByGenre(genreId)));
+      var response = await request.close();
+      if (response.statusCode == HttpStatus.ok) {
+        var responseBody = await response.transform(utf8.decoder).join();
+        var decodedJson = jsonDecode(responseBody);
+        if (decodedJson is Map<String, dynamic> &&
+            decodedJson['data'] is List) {
+          List result = decodedJson['data'];
+          for (var i = 0; i < result.length; i++) {
+            Book book =
+                Book.fromJson(result.elementAt(i) as Map<String, dynamic>);
+            books.add(book);
+          }
+          log('Fetched books: ${books.toString()}');
+        }
+      }
+      return books;
+    } catch (e) {
+      log(e.toString());
+      return [];
     }
   }
 }

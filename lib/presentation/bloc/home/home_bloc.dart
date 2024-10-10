@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/genre.dart';
 import 'package:fable_cosmic_read_app_fe/data/res/book_repo.dart';
+import 'package:fable_cosmic_read_app_fe/data/res/genre_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'home_event.dart';
@@ -18,14 +20,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<void> homeInitialEvent(
       HomeInitialEvent event, Emitter<HomeState> emit) async {
-    emit(BookFetchingLoadingState());
+    emit(DataFetchingLoadingState());
     try {
       final newBooks = await BookRepo.fetchBooks(1);
       final topBooks = await BookRepo.fetchBooks(2);
       final recommendedBooks = await BookRepo.fetchBooks(3);
-      emit(BookFetchingSuccessState(newBooks, topBooks, recommendedBooks));
+      final popularGenre = await GenreRepo.fetchGenres(1, 4, null);
+      emit(DataFetchingSuccessState(
+          newBooks, topBooks, recommendedBooks, popularGenre));
     } catch (e) {
-      emit(BookFetchingFailureState());
+      emit(DataFetchingFailureState());
     }
   }
 
