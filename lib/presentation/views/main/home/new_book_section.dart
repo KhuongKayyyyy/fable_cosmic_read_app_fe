@@ -1,3 +1,4 @@
+import 'package:fable_cosmic_read_app_fe/core/theme/app_theme.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/widget/book/new_coming_book.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _NewBookSectionState extends State<NewBookSection> {
                   onPressed: widget.onViewAll,
                   child: Text(
                     "View All",
-                    style: TextStyle(color: Colors.grey[500]),
+                    style: TextStyle(color: AppTheme.secondaryColor),
                   )),
             ],
           ),

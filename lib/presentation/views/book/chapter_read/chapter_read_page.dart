@@ -168,7 +168,7 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
             children: [
               const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: const Text(
+                child: Text(
                   "Chapter List",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),

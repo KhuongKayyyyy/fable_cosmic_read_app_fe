@@ -1,13 +1,11 @@
+import "package:fable_cosmic_read_app_fe/core/theme/app_theme.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/book_by_type_section.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/continue_reading_section.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/new_book_section.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import "package:fable_cosmic_read_app_fe/presentation/widget/book/continue_read_book.dart";
-import "package:fable_cosmic_read_app_fe/presentation/widget/book/new_coming_book.dart";
 import "package:fable_cosmic_read_app_fe/core/constant/app_image.dart";
-import "package:fable_cosmic_read_app_fe/presentation/widget/book/book_item.dart";
 import "package:fable_cosmic_read_app_fe/core/router/routes.dart";
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/home/home_bloc.dart';
 
@@ -76,12 +74,20 @@ class _HomepageState extends State<Homepage> {
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                     const Spacer(),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.notifications_none,
-                          size: 30,
-                        ))
+                    Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppTheme.secondaryColor,
+                          border:
+                              Border.all(width: 2, color: AppTheme.iconColor)),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.notifications_none,
+                            size: 30,
+                            color: AppTheme.iconColor,
+                          )),
+                    )
                   ],
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:fable_cosmic_read_app_fe/core/theme/app_theme.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/widget/book/continue_read_book.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class ContinueReadingSection extends StatelessWidget {
                   onPressed: onViewAll,
                   child: Text(
                     "View All",
-                    style: TextStyle(color: Colors.grey[500]),
+                    style: TextStyle(color: AppTheme.secondaryColor),
                   )),
             ],
           ),
