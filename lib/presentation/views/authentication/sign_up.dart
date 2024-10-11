@@ -139,6 +139,44 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Confirm Password",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    filled: true, // This makes sure the fillColor is applied
+                    fillColor: Colors.grey[100], // Light grey background color
+                    hintText: "Password", // Hint text
+                    hintStyle: const TextStyle(
+                      color: Colors.grey, // Grey color for the hint text
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          width: 3.0, color: AppTheme.secondaryColor),
+                      borderRadius:
+                          BorderRadius.circular(10), // Rounded borders
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: AppTheme.primaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
                   height: 40,
                 ),
                 InkWell(

@@ -2,6 +2,7 @@ import 'package:fable_cosmic_read_app_fe/core/constant/app_icon.dart';
 import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:fable_cosmic_read_app_fe/core/router/routes.dart';
 import 'package:fable_cosmic_read_app_fe/core/theme/app_theme.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -150,6 +151,10 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                             color: AppTheme.iconColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            context.pushNamed(Routes.login);
+                          },
                       )
                     ]),
                   )
