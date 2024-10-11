@@ -82,7 +82,7 @@ class _HomepageState extends State<Homepage> {
                               Border.all(width: 2, color: AppTheme.iconColor)),
                       child: IconButton(
                           onPressed: () {
-                            context.pushNamed(Routes.login);
+                            context.pushNamed(Routes.authentication);
                           },
                           icon: Icon(
                             Icons.notifications_none,
