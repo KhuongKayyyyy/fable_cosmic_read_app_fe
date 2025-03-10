@@ -1,4 +1,5 @@
 class ApiConfig {
+  // ignore: constant_identifier_names
   static const String BASE_URL = 'http://127.0.0.1:3000/';
 
   static String getAllBooks(int page) {
@@ -44,5 +45,17 @@ class ApiConfig {
     }
 
     return url;
+  }
+
+  static String login() {
+    return '${BASE_URL}user/login';
+  }
+
+  static String register() {
+    return '${BASE_URL}user/register';
+  }
+
+  static String getUserById(String userId) {
+    return '${BASE_URL}user/$userId';
   }
 }

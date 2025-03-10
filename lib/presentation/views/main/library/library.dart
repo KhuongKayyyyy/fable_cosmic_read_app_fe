@@ -5,10 +5,8 @@ class Library extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Center(
-        child: Text("Library"),
-      ),
+    return const Center(
+      child: Text("Library"),
     );
   }
 }

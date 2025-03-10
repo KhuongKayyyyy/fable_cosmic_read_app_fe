@@ -1,5 +1,7 @@
+import 'package:fable_cosmic_read_app_fe/core/constant/app_settings.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/home/view_all_book/view_all_book.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/authentication/authentication_page.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/authentication/login.dart';
@@ -25,18 +27,21 @@ class AppNavigation {
       GlobalKey<NavigatorState>(debugLabel: "Shell Library");
   static final GlobalKey<NavigatorState> _shellNavigatorSearchKey =
       GlobalKey<NavigatorState>(debugLabel: "Search Profile");
-  static final GlobalKey<NavigatorState> _shellNavigatorAuthenticationKey =
-      GlobalKey<NavigatorState>(debugLabel: "Authentication");
 
-  static final GoRouter router = GoRouter(
-    initialLocation: Routes.authentication,
-    navigatorKey: _rootNavigatorKey,
-    routes: [
-      _buildMainShellRoute(),
-      ..._buildBookRoutes(),
-      ..._buildAuthenticationRoutes(),
-    ],
-  );
+  static Future<GoRouter> createRouter() async {
+    final String? userId =
+        await const FlutterSecureStorage().read(key: AppSettings.currentUser);
+
+    return GoRouter(
+      initialLocation: userId != null ? Routes.home : Routes.authentication,
+      navigatorKey: _rootNavigatorKey,
+      routes: [
+        _buildMainShellRoute(),
+        ..._buildBookRoutes(),
+        ..._buildAuthenticationRoutes(),
+      ],
+    );
+  }
 
   static StatefulShellRoute _buildMainShellRoute() {
     return StatefulShellRoute.indexedStack(
@@ -162,4 +167,6 @@ class AppNavigation {
       ),
     ];
   }
+
+  static initRouter() {}
 }

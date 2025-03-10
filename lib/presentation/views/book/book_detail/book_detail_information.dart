@@ -7,6 +7,7 @@ class BookDetailInformation extends StatefulWidget {
   const BookDetailInformation({super.key, required this.book});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BookDetailInformationState createState() => _BookDetailInformationState();
 }
 

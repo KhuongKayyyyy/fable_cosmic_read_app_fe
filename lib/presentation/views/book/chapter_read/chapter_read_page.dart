@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
-import 'package:fable_cosmic_read_app_fe/data/model/chapter.dart';
 import 'package:fable_cosmic_read_app_fe/data/res/book_repo.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/chapter_read/chapter_read_bloc.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +48,7 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
               ),
             );
           case ChapterReadSuccessState _:
-            final successState = state as ChapterReadSuccessState;
+            final successState = state;
             _isFirstChapter =
                 successState.book.isFirstChapter(successState.chapter.id);
             _isLastChapter =

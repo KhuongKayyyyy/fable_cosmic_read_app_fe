@@ -1,7 +1,6 @@
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class NewComingBook extends StatelessWidget {
   final VoidCallback? onTap;

@@ -48,6 +48,9 @@ dependencies:
   crystal_navigation_bar: ^1.0.0
   flutter_dotenv: ^5.1.0
   font_awesome_flutter: ^10.7.0
+  flutter_easyloading: ^3.0.5
+  flutter_secure_storage: ^9.2.4
+  skeletonizer: ^1.4.3
 
 dev_dependencies:
   flutter_test:

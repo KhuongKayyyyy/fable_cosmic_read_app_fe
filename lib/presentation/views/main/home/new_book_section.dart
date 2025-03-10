@@ -13,6 +13,7 @@ class NewBookSection extends StatefulWidget {
       {super.key, required this.books, this.onTap, this.onViewAll});
 
   @override
+  // ignore: library_private_types_in_public_api
   _NewBookSectionState createState() => _NewBookSectionState();
 }
 

@@ -2,7 +2,6 @@ import 'package:fable_cosmic_read_app_fe/core/theme/app_theme.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 
 class Mainwrapper extends StatefulWidget {
   const Mainwrapper({super.key, required this.navigationShell});
@@ -13,7 +12,6 @@ class Mainwrapper extends StatefulWidget {
 }
 
 class _MainwrapperState extends State<Mainwrapper> {
-  // int _myCurrentIndex = 0; // Removed unused field
   void _goToPage(int index) {
     widget.navigationShell.goBranch(index,
         initialLocation: index == widget.navigationShell.currentIndex);

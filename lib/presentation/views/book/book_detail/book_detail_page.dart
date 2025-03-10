@@ -15,6 +15,7 @@ class BookDetailPage extends StatefulWidget {
   const BookDetailPage({super.key, required this.bookModel});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BookDetailPageState createState() => _BookDetailPageState();
 }
 
@@ -282,10 +283,5 @@ class _BookDetailPageState extends State<BookDetailPage> {
     return match != null ? match.group(0)! : '';
   }
 
-  void main() {
-    String input = "Chương 124";
-    String number = extractNumber(input);
-
-    print(number); // Output: 124
-  }
+  void main() {}
 }

@@ -9,9 +9,7 @@ part 'book_detail_state.dart';
 
 class BookDetailBloc extends Bloc<BookDetailEvent, BookDetailState> {
   BookDetailBloc() : super(BookDetailInitial()) {
-    on<BookDetailEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<BookDetailEvent>((event, emit) {});
     on<BookDetailInitialEvent>(bookDetailInitialEvent);
     on<ToggleChapterViewEvent>(toggleChapterViewEvent);
     on<ChapterSelectedEvent>(chapterSelectedEvent);

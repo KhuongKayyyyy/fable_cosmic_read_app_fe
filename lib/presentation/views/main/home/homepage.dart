@@ -1,4 +1,5 @@
 import "package:fable_cosmic_read_app_fe/core/theme/app_theme.dart";
+import "package:fable_cosmic_read_app_fe/presentation/bloc/authentication/authentication_bloc.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/book_by_type_section.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/continue_reading_section.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/new_book_section.dart";
@@ -17,12 +18,15 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  String? userId;
   final HomeBloc homeBloc = HomeBloc();
+  final AuthenticationBloc authenticationBloc = AuthenticationBloc();
 
   @override
   void initState() {
     super.initState();
     homeBloc.add(HomeInitialEvent());
+    authenticationBloc.add(AuthenticatioGetUserRequested());
   }
 
   @override
@@ -69,27 +73,37 @@ class _HomepageState extends State<Homepage> {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    const Text(
-                      "Hi Khuong !!!",
-                      style: TextStyle(fontWeight: FontWeight.w600),
+                    BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                      bloc: authenticationBloc,
+                      builder: (context, userState) {
+                        if (userState is AuthenticationGetUserSuccess) {
+                          return Text(userState.user.name);
+                        } else if (userState is AuthenticationGetUserFailure) {
+                          return const Text("User not found");
+                        } else if (userState is AuthenticationLoading) {
+                          return const Text("Loading...");
+                        }
+                        return const Text("Loading...");
+                      },
                     ),
                     const Spacer(),
-                    Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppTheme.secondaryColor,
-                          border:
-                              Border.all(width: 2, color: AppTheme.iconColor)),
-                      child: IconButton(
-                          onPressed: () {
-                            context.pushNamed(Routes.authentication);
-                          },
-                          icon: Icon(
-                            Icons.notifications_none,
-                            size: 30,
-                            color: AppTheme.iconColor,
-                          )),
-                    )
+                    if (userId == null)
+                      Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppTheme.secondaryColor,
+                            border: Border.all(
+                                width: 2, color: AppTheme.iconColor)),
+                        child: IconButton(
+                            onPressed: () {
+                              context.pushNamed(Routes.authentication);
+                            },
+                            icon: Icon(
+                              Icons.notifications_none,
+                              size: 30,
+                              color: AppTheme.iconColor,
+                            )),
+                      )
                   ],
                 ),
               ),
@@ -100,6 +114,11 @@ class _HomepageState extends State<Homepage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      TextButton(
+                        onPressed: () async {},
+                        child: const Text("Test"),
+                      ),
+
                       // new book section
                       NewBookSection(
                         books: successState.newBooks,
