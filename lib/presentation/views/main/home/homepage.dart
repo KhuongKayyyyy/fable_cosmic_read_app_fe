@@ -1,4 +1,5 @@
 import "package:fable_cosmic_read_app_fe/core/theme/app_theme.dart";
+import "package:fable_cosmic_read_app_fe/data/res/library_repo.dart";
 import "package:fable_cosmic_read_app_fe/presentation/bloc/authentication/authentication_bloc.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/book_by_type_section.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/continue_reading_section.dart";
@@ -115,7 +116,13 @@ class _HomepageState extends State<Homepage> {
                   child: Column(
                     children: [
                       TextButton(
-                        onPressed: () async {},
+                        onPressed: () async {
+                          LibraryRepo().checkIfBookIsInLibrary(
+                              userId: "6707a6456428044725aac84d",
+                              bookId: "67012211a3d6a4cd7e4bc92a",
+                              token:
+                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY3MDdhNjQ1NjQyODA0NDcyNWFhYzg0ZCIsIm5hbWUiOiJEYXQgS2h1b25nIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEs1bnU3T1VEbzhOdUVNV0F2NHlNWHUuaUlNTVBGVHZoeFh5S3A3MWh3NE5UY3BkazQ5ODltIiwicm9sZSI6InVzZXIiLCJfX3YiOjB9LCJpYXQiOjE3NDE1OTIxOTcsImV4cCI6MTc0MjQ1NjE5N30.4nYp35vrI06TfX-iV4BtdLCr4plxFA2ZK2Myj2qPyQc");
+                        },
                         child: const Text("Test"),
                       ),
 

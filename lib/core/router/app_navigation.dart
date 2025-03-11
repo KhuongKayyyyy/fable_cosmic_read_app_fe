@@ -12,9 +12,8 @@ import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/boo
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/chapter_read/chapter_read_page.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/home/homepage.dart';
-import 'package:fable_cosmic_read_app_fe/presentation/views/main/library/library.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/main/library/library_page.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/search/search.dart';
-import 'package:fable_cosmic_read_app_fe/presentation/views/main/setting/setting.dart';
 import 'package:fable_cosmic_read_app_fe/mainwrapper.dart';
 import 'package:fable_cosmic_read_app_fe/core/router/routes.dart';
 
@@ -23,8 +22,8 @@ class AppNavigation {
       GlobalKey<NavigatorState>();
   static final GlobalKey<NavigatorState> _shellNavigatorHomeKey =
       GlobalKey<NavigatorState>(debugLabel: "Shell Home");
-  static final GlobalKey<NavigatorState> _shellNavigatorSettingKey =
-      GlobalKey<NavigatorState>(debugLabel: "Shell Setting");
+  // static final GlobalKey<NavigatorState> _shellNavigatorSettingKey =
+  //     GlobalKey<NavigatorState>(debugLabel: "Shell Setting");
   static final GlobalKey<NavigatorState> _shellNavigatorLibraryKey =
       GlobalKey<NavigatorState>(debugLabel: "Shell Library");
   static final GlobalKey<NavigatorState> _shellNavigatorSearchKey =
@@ -51,9 +50,9 @@ class AppNavigation {
           Mainwrapper(navigationShell: navigationShell),
       branches: [
         _buildHomeBranch(),
-        _buildLibraryBranch(),
         _buildSearchBranch(),
-        _buildSettingBranch(),
+        _buildLibraryBranch(),
+        // _buildSettingBranch(),
       ],
     );
   }
@@ -77,7 +76,7 @@ class AppNavigation {
         GoRoute(
           path: Routes.library,
           name: Routes.library,
-          builder: (context, state) => const Library(),
+          builder: (context, state) => const LibraryPage(),
         ),
       ],
       navigatorKey: _shellNavigatorLibraryKey,
@@ -104,18 +103,18 @@ class AppNavigation {
     );
   }
 
-  static StatefulShellBranch _buildSettingBranch() {
-    return StatefulShellBranch(
-      routes: [
-        GoRoute(
-          path: Routes.setting,
-          name: Routes.setting,
-          builder: (context, state) => const Setting(),
-        ),
-      ],
-      navigatorKey: _shellNavigatorSettingKey,
-    );
-  }
+  // static StatefulShellBranch _buildSettingBranch() {
+  //   return StatefulShellBranch(
+  //     routes: [
+  //       GoRoute(
+  //         path: Routes.setting,
+  //         name: Routes.setting,
+  //         builder: (context, state) => const Setting(),
+  //       ),
+  //     ],
+  //     navigatorKey: _shellNavigatorSettingKey,
+  //   );
+  // }
 
   static List<GoRoute> _buildBookRoutes() {
     return [

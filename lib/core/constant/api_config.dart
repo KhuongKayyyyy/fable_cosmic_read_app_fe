@@ -62,4 +62,25 @@ class ApiConfig {
   static String getUserById(String userId) {
     return '${BASE_URL}user/$userId';
   }
+
+  // library
+  static String getLibraryByUserId(String userId) {
+    return '${BASE_URL}library/$userId';
+  }
+
+  static String addBookToLibrary(String userId) {
+    return '${BASE_URL}library/$userId';
+  }
+
+  static String removeBookFromLibrary(String userId, String bookId) {
+    return '${BASE_URL}library/$userId/$bookId';
+  }
+
+  static String clearLibrary(String userId) {
+    return '${BASE_URL}library/$userId';
+  }
+
+  static String checkIfBookIsInLibrary(String userId, String bookId) {
+    return '${BASE_URL}library/$userId/$bookId';
+  }
 }

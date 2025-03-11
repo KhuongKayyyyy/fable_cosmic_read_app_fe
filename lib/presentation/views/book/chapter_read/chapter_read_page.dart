@@ -4,6 +4,7 @@ import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/data/res/book_repo.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/chapter_read/chapter_read_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,14 +23,41 @@ class ChapterReadPage extends StatefulWidget {
 
 class _ChapterReadPageState extends State<ChapterReadPage> {
   final ChapterReadBloc chapterReadBloc = ChapterReadBloc();
+  final ScrollController _scrollController = ScrollController();
   bool _isFirstChapter = false;
   bool _isLastChapter = false;
+  bool _isBottomAppBarVisible = true;
 
   @override
   void initState() {
     super.initState();
     chapterReadBloc
         .add(ChapterReadInitialEvent(widget.chapterId, widget.bookId));
+    _scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      if (_isBottomAppBarVisible) {
+        setState(() {
+          _isBottomAppBarVisible = false;
+        });
+      }
+    } else if (_scrollController.position.userScrollDirection ==
+        ScrollDirection.forward) {
+      if (!_isBottomAppBarVisible) {
+        setState(() {
+          _isBottomAppBarVisible = true;
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -54,34 +82,40 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
             _isLastChapter =
                 successState.book.isLastChapter(successState.chapter.id);
             return Scaffold(
-              appBar: AppBar(
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    context.pop();
-                  },
-                ),
-                title: Text("${successState.chapter.title} ",
-                    style: const TextStyle(fontWeight: FontWeight.w500)),
-              ),
-              body: Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: successState.chapter.pages.map((pageUrl) {
-                            return Image.network(pageUrl);
-                          }).toList(),
+              body: CustomScrollView(
+                controller: _scrollController,
+                slivers: [
+                  SliverAppBar(
+                    floating: true,
+                    snap: true,
+                    leading: IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () {
+                        context.pop();
+                      },
+                    ),
+                    title: Text("${successState.chapter.title} ",
+                        style: const TextStyle(fontWeight: FontWeight.w500)),
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: successState.chapter.pages.map((pageUrl) {
+                              return Image.network(pageUrl);
+                            }).toList(),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              bottomNavigationBar: SizedBox(
-                height: 80,
+              bottomNavigationBar: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                height: _isBottomAppBarVisible ? 80 : 0,
                 child: BottomAppBar(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -157,10 +191,6 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
   void _showChaperList(BuildContext context, Book book) async {
     final chapterList = await BookRepo.fetchBookChapters(book.id!);
     showModalBottomSheet(
-        // constraints: const BoxConstraints(
-        //   maxWidth: 300,
-        // ),
-        // ignore: use_build_context_synchronously
         context: context,
         builder: (BuildContext context) {
           return Column(

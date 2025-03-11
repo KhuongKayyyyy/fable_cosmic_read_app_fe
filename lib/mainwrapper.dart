@@ -1,5 +1,6 @@
 import 'package:fable_cosmic_read_app_fe/core/theme/app_theme.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -41,20 +42,21 @@ class _MainwrapperState extends State<Mainwrapper> {
               activeColor: AppTheme.primaryColor,
             ),
             FlashyTabBarItem(
-              icon: const Icon(Icons.library_books),
-              title: const Text('Library'),
-              activeColor: AppTheme.primaryColor,
-            ),
-            FlashyTabBarItem(
               icon: const Icon(Icons.search),
               title: const Text('Search'),
               activeColor: AppTheme.primaryColor,
             ),
             FlashyTabBarItem(
-              icon: const Icon(Icons.settings),
-              title: const Text('Settings'),
+              icon: const Icon(CupertinoIcons.book),
+              title: const Text('Library'),
               activeColor: AppTheme.primaryColor,
             ),
+
+            // FlashyTabBarItem(
+            //   icon: const Icon(Icons.settings),
+            //   title: const Text('Settings'),
+            //   activeColor: AppTheme.primaryColor,
+            // ),
           ],
           onItemSelected: _goToPage,
         ),

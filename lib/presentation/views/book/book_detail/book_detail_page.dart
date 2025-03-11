@@ -1,4 +1,6 @@
+import 'package:fable_cosmic_read_app_fe/core/constant/app_settings.dart';
 import 'package:fable_cosmic_read_app_fe/core/theme/app_theme.dart';
+import 'package:fable_cosmic_read_app_fe/data/res/library_repo.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/book_detail/book_detail_bloc.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/core/router/routes.dart';
@@ -6,8 +8,12 @@ import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/boo
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/book_detail_information.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/chapter_item.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/book/book_detail/like_follow_section.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
 class BookDetailPage extends StatefulWidget {
@@ -20,12 +26,69 @@ class BookDetailPage extends StatefulWidget {
 }
 
 class _BookDetailPageState extends State<BookDetailPage> {
+  bool isInLibrary = false;
   final BookDetailBloc bookDetailBloc = BookDetailBloc();
 
   @override
   void initState() {
     super.initState();
     bookDetailBloc.add(BookDetailInitialEvent(widget.bookModel.id!));
+    getBookStatus();
+  }
+
+  void getBookStatus() async {
+    final id =
+        await const FlutterSecureStorage().read(key: AppSettings.currentUser);
+    final token =
+        await const FlutterSecureStorage().read(key: AppSettings.token);
+    if (id != null && token != null) {
+      setState(() async {
+        isInLibrary = await LibraryRepo().checkIfBookIsInLibrary(
+            userId: id, bookId: widget.bookModel.id!, token: token);
+      });
+    }
+  }
+
+  void addBookToLibrary() async {
+    final id =
+        await const FlutterSecureStorage().read(key: AppSettings.currentUser);
+    final token =
+        await const FlutterSecureStorage().read(key: AppSettings.token);
+    if (id != null && token != null) {
+      try {
+        await LibraryRepo().addBookToLibrary(
+            userId: id, bookId: widget.bookModel.id!, token: token);
+        setState(() {
+          isInLibrary = true;
+        });
+        EasyLoading.showSuccess("Added to library");
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+    }
+  }
+
+  void deleteBookFromLibrary() async {
+    final id =
+        await const FlutterSecureStorage().read(key: AppSettings.currentUser);
+    final token =
+        await const FlutterSecureStorage().read(key: AppSettings.token);
+    if (id != null && token != null) {
+      try {
+        await LibraryRepo().removeBookFromLibrary(
+            userId: id, bookId: widget.bookModel.id!, token: token);
+        setState(() {
+          isInLibrary = false;
+        });
+        EasyLoading.showSuccess("Removed from library");
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+    }
   }
 
   @override
@@ -100,9 +163,17 @@ class _BookDetailPageState extends State<BookDetailPage> {
                         shape: BoxShape.circle,
                         color: Colors.black.withOpacity(0.4)),
                     child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.library_add,
+                        onPressed: () {
+                          if (isInLibrary) {
+                            deleteBookFromLibrary();
+                          } else {
+                            addBookToLibrary();
+                          }
+                        },
+                        icon: Icon(
+                          isInLibrary
+                              ? CupertinoIcons.check_mark
+                              : CupertinoIcons.add,
                           color: Colors.white,
                         )),
                   ),
