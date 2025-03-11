@@ -35,7 +35,7 @@ class BookRepo {
       return books;
     } catch (e) {
       log(e.toString());
-      return [];
+      rethrow;
     }
   }
 
@@ -126,6 +126,34 @@ class BookRepo {
     try {
       var request =
           await client.getUrl(Uri.parse(ApiConfig.getBookByGenre(genreId)));
+      var response = await request.close();
+      if (response.statusCode == HttpStatus.ok) {
+        var responseBody = await response.transform(utf8.decoder).join();
+        var decodedJson = jsonDecode(responseBody);
+        if (decodedJson is Map<String, dynamic> &&
+            decodedJson['data'] is List) {
+          List result = decodedJson['data'];
+          for (var i = 0; i < result.length; i++) {
+            Book book =
+                Book.fromJson(result.elementAt(i) as Map<String, dynamic>);
+            books.add(book);
+          }
+          log('Fetched books: ${books.toString()}');
+        }
+      }
+      return books;
+    } catch (e) {
+      log(e.toString());
+      return [];
+    }
+  }
+
+  static Future<List<Book>> searchBookByName(String name) async {
+    var client = HttpClient();
+    List<Book> books = [];
+    try {
+      var request =
+          await client.getUrl(Uri.parse(ApiConfig.getBookByName(name)));
       var response = await request.close();
       if (response.statusCode == HttpStatus.ok) {
         var responseBody = await response.transform(utf8.decoder).join();

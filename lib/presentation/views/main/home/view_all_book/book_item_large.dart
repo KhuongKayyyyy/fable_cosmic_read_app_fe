@@ -1,3 +1,4 @@
+import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/genre.dart';
 import 'package:fable_cosmic_read_app_fe/data/res/book_repo.dart';
@@ -9,6 +10,7 @@ class BookItemLarge extends StatefulWidget {
   const BookItemLarge({super.key, required this.book, this.onTap});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BookItemLargeState createState() => _BookItemLargeState();
 }
 
@@ -46,6 +48,14 @@ class _BookItemLargeState extends State<BookItemLarge> {
                   width: 100,
                   height: 150,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      AppImage.darkLogo,
+                      width: 100,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    );
+                  },
                 ),
               ),
               const SizedBox(width: 10),

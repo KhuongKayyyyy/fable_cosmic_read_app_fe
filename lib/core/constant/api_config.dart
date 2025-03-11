@@ -26,6 +26,10 @@ class ApiConfig {
     return '${BASE_URL}books/genre/$genreId';
   }
 
+  static String getBookByName(String bookName) {
+    return '${BASE_URL}books/search/$bookName';
+  }
+
   static String getAllGenres(int? page, int? size, String? searchString) {
     String url = '${BASE_URL}genres';
     List<String> queryParams = [];

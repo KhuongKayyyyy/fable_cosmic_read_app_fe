@@ -22,3 +22,21 @@ class NavigateToChapterReadState extends BookDetailActionState {
   final Chapter chapter;
   NavigateToChapterReadState(this.chapter);
 }
+
+class GetBookByGenreLoadingState extends BookDetailState {}
+
+class GetBookByGenreFailureState extends BookDetailState {}
+
+class GetBookByGenreSuccessState extends BookDetailState {
+  final List<Book> books;
+  GetBookByGenreSuccessState(this.books);
+}
+
+class GetPopularBookSuccessState extends BookDetailState {
+  final List<Book> books;
+  GetPopularBookSuccessState(this.books);
+}
+
+class GetPopularBookFailureState extends BookDetailState {}
+
+class GetPopularBookLoadingState extends BookDetailState {}

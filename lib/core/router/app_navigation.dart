@@ -1,5 +1,7 @@
 import 'package:fable_cosmic_read_app_fe/core/constant/app_settings.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/genre.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/home/view_all_book/view_all_book.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/main/search/books_by_genre.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
@@ -89,6 +91,13 @@ class AppNavigation {
           path: Routes.search,
           name: Routes.search,
           builder: (context, state) => const Search(),
+        ),
+        GoRoute(
+          path: Routes.getBookByGenre,
+          name: Routes.getBookByGenre,
+          builder: (context, state) => BooksByGenre(
+            genre: state.extra as Genre,
+          ),
         ),
       ],
       navigatorKey: _shellNavigatorSearchKey,

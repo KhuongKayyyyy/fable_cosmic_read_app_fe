@@ -14,3 +14,10 @@ final class ChapterSelectedEvent extends BookDetailEvent {
   final Chapter chapter;
   ChapterSelectedEvent(this.chapter);
 }
+
+class GetBookByGenreEvent extends BookDetailEvent {
+  final Genre genre;
+  GetBookByGenreEvent(this.genre);
+}
+
+class GetPopularBookEvent extends BookDetailEvent {}

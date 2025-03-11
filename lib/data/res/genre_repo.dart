@@ -35,7 +35,7 @@ class GenreRepo {
       return genres;
     } catch (e) {
       log(e.toString());
-      return [];
+      rethrow;
     }
   }
 }

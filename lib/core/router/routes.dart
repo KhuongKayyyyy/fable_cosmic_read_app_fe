@@ -15,4 +15,7 @@ class Routes {
   static const String bookDetail = '/bookDetail';
   static const String chapterRead = '/chapterRead';
   static const String bookListView = '/bookList';
+
+  // book page
+  static const String getBookByGenre = '/getBookByGenre';
 }
