@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fable_cosmic_read_app_fe/core/constant/app_image.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/book.dart';
 import 'package:fable_cosmic_read_app_fe/data/res/book_repo.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/bloc/chapter_read/chapter_read_bloc.dart';
@@ -104,7 +105,12 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: successState.chapter.pages.map((pageUrl) {
-                              return Image.network(pageUrl);
+                              return Image.network(
+                                pageUrl,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Image.asset(AppImage.defaultImage);
+                                },
+                              );
                             }).toList(),
                           ),
                         ),
@@ -191,6 +197,7 @@ class _ChapterReadPageState extends State<ChapterReadPage> {
   void _showChaperList(BuildContext context, Book book) async {
     final chapterList = await BookRepo.fetchBookChapters(book.id!);
     showModalBottomSheet(
+        // ignore: use_build_context_synchronously
         context: context,
         builder: (BuildContext context) {
           return Column(

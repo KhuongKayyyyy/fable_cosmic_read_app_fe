@@ -20,15 +20,12 @@ class ChapterRepo {
         var decodedJson = jsonDecode(responseBody);
         log(decodedJson.toString());
 
-        // Check if 'data' key exists and is a Map
         if (decodedJson is Map<String, dynamic> &&
             decodedJson.containsKey('data')) {
-          var chapterData = decodedJson['data']; // Extract the 'data' field
+          var chapterData = decodedJson['data'];
 
-          // Ensure chapterData is a Map
           if (chapterData is Map<String, dynamic>) {
-            chapter =
-                Chapter.fromJson(chapterData); // Pass chapterData to fromJson
+            chapter = Chapter.fromJson(chapterData);
             log('Fetched chapter: ${chapter.toString()}');
           }
         }

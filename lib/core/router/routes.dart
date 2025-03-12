@@ -18,4 +18,7 @@ class Routes {
 
   // book page
   static const String getBookByGenre = '/getBookByGenre';
+
+  // list page
+  static const String continueReadingViewAll = '/continueReadingViewAll';
 }

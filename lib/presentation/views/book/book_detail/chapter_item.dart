@@ -33,6 +33,7 @@ class ChapterItem extends StatelessWidget {
                   } else {
                     return Center(
                       child: CircularProgressIndicator(
+                        color: AppTheme.primaryColor,
                         value: loadingProgress.expectedTotalBytes != null
                             ? loadingProgress.cumulativeBytesLoaded /
                                 (loadingProgress.expectedTotalBytes ?? 1)

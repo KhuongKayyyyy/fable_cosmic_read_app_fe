@@ -45,7 +45,7 @@ class BookItem extends StatelessWidget {
                   errorBuilder: (BuildContext context, Object error,
                       StackTrace? stackTrace) {
                     return Image.asset(
-                      AppImage.defaultImage,
+                      AppImage.darkLogo,
                       fit: BoxFit.cover,
                     );
                   },

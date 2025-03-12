@@ -1,11 +1,13 @@
+import "package:fable_cosmic_read_app_fe/core/constant/app_settings.dart";
 import "package:fable_cosmic_read_app_fe/core/theme/app_theme.dart";
-import "package:fable_cosmic_read_app_fe/data/res/library_repo.dart";
+import "package:fable_cosmic_read_app_fe/data/res/continue_reading_repo.dart";
 import "package:fable_cosmic_read_app_fe/presentation/bloc/authentication/authentication_bloc.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/book_by_type_section.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/continue_reading_section.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/new_book_section.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter_secure_storage/flutter_secure_storage.dart";
 import 'package:go_router/go_router.dart';
 import "package:fable_cosmic_read_app_fe/core/constant/app_image.dart";
 import "package:fable_cosmic_read_app_fe/core/router/routes.dart";
@@ -28,6 +30,12 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     homeBloc.add(HomeInitialEvent());
     authenticationBloc.add(AuthenticatioGetUserRequested());
+  }
+
+  Future<void> _refreshData() async {
+    homeBloc.add(HomeInitialEvent()); // Reload home page data
+    authenticationBloc
+        .add(AuthenticatioGetUserRequested()); // Refresh authentication state
   }
 
   @override
@@ -53,129 +61,20 @@ class _HomepageState extends State<Homepage> {
       builder: (context, state) {
         switch (state) {
           case DataFetchingLoadingState _:
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: CircularProgressIndicator(
+                color: AppTheme.primaryColor,
+              ),
             );
           case DataFetchingSuccessState _:
             final successState = state;
-            return Scaffold(
-              appBar: AppBar(
-                // backgroundColor: Colors.white.withOpacity(0.1),
-                title: Row(
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: AssetImage(AppImage.defaultAvatar),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                      bloc: authenticationBloc,
-                      builder: (context, userState) {
-                        if (userState is AuthenticationGetUserSuccess) {
-                          return Text(userState.user.name);
-                        } else if (userState is AuthenticationGetUserFailure) {
-                          return const Text("User not found");
-                        } else if (userState is AuthenticationLoading) {
-                          return const Text("Loading...");
-                        }
-                        return const Text("Loading...");
-                      },
-                    ),
-                    const Spacer(),
-                    if (userId == null)
-                      Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppTheme.secondaryColor,
-                            border: Border.all(
-                                width: 2, color: AppTheme.iconColor)),
-                        child: IconButton(
-                            onPressed: () {
-                              context.pushNamed(Routes.authentication);
-                            },
-                            icon: Icon(
-                              Icons.notifications_none,
-                              size: 30,
-                              color: AppTheme.iconColor,
-                            )),
-                      )
-                  ],
-                ),
-              ),
-              extendBodyBehindAppBar: true,
-              body: Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).padding.top + kToolbarHeight),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      TextButton(
-                        onPressed: () async {
-                          LibraryRepo().checkIfBookIsInLibrary(
-                              userId: "6707a6456428044725aac84d",
-                              bookId: "67012211a3d6a4cd7e4bc92a",
-                              token:
-                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY3MDdhNjQ1NjQyODA0NDcyNWFhYzg0ZCIsIm5hbWUiOiJEYXQgS2h1b25nIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEs1bnU3T1VEbzhOdUVNV0F2NHlNWHUuaUlNTVBGVHZoeFh5S3A3MWh3NE5UY3BkazQ5ODltIiwicm9sZSI6InVzZXIiLCJfX3YiOjB9LCJpYXQiOjE3NDE1OTIxOTcsImV4cCI6MTc0MjQ1NjE5N30.4nYp35vrI06TfX-iV4BtdLCr4plxFA2ZK2Myj2qPyQc");
-                        },
-                        child: const Text("Test"),
-                      ),
-
-                      // new book section
-                      NewBookSection(
-                        books: successState.newBooks,
-                        onTap: (selectedBook) {
-                          homeBloc.add(BookSelectedEvent(selectedBook));
-                        },
-                        onViewAll: () {
-                          homeBloc.add(BookListSelectedEvent(
-                              successState.newBooks, "New Books"));
-                        },
-                      ),
-                      // continue reading section
-                      ContinueReadingSection(
-                        books: successState.recommendedBooks,
-                        onTap: (selectedBook) {
-                          homeBloc.add(BookSelectedEvent(selectedBook));
-                        },
-                        onViewAll: () {
-                          homeBloc.add(BookListSelectedEvent(
-                              successState.recommendedBooks,
-                              "Continue Reading"));
-                        },
-                      ),
-                      // top manga section
-                      const SizedBox(height: 10),
-                      BookByTypeSection(
-                          books: successState.topBooks,
-                          sectionType: "Top Manga",
-                          onTap: (selectedBook) {
-                            homeBloc.add(BookSelectedEvent(selectedBook));
-                          },
-                          onViewAll: () {
-                            homeBloc.add(BookListSelectedEvent(
-                                successState.topBooks, "Top Manga"));
-                          }),
-                      const SizedBox(height: 10),
-                      BookByTypeSection(
-                          books: successState.newBooks,
-                          sectionType: "Recommend for you",
-                          onTap: (selectedBook) {
-                            homeBloc.add(BookSelectedEvent(selectedBook));
-                          },
-                          onViewAll: () {
-                            homeBloc.add(BookListSelectedEvent(
-                                successState.newBooks, "Recommend for you"));
-                          }),
-                      const SizedBox(height: 110),
-                    ],
-                  ),
-                ),
+            return RefreshIndicator(
+              color: AppTheme.primaryColor,
+              onRefresh: _refreshData,
+              child: Scaffold(
+                appBar: _buildHomeAppBar(context),
+                extendBodyBehindAppBar: true,
+                body: _buildHomeBody(context, successState),
               ),
             );
           case DataFetchingFailureState _:
@@ -188,6 +87,131 @@ class _HomepageState extends State<Homepage> {
             );
         }
       },
+    );
+  }
+
+  Padding _buildHomeBody(
+      BuildContext context, DataFetchingSuccessState successState) {
+    return Padding(
+      padding: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top + kToolbarHeight),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            TextButton(
+              onPressed: () async {
+                final id = await const FlutterSecureStorage()
+                    .read(key: AppSettings.currentUser);
+                final token = await const FlutterSecureStorage()
+                    .read(key: AppSettings.token);
+                if (id != null && token != null) {
+                  await ContinueReadingRepo().checkIfBookIsReading(
+                      userId: id,
+                      token: token,
+                      bookId: "670129f9a3d6a4cd7e4bcb0f");
+                }
+              },
+              child: const Text("Test"),
+            ),
+            // new book section
+            NewBookSection(
+              books: successState.newBooks,
+              onTap: (selectedBook) {
+                homeBloc.add(BookSelectedEvent(selectedBook));
+              },
+              onViewAll: () {
+                homeBloc.add(
+                    BookListSelectedEvent(successState.newBooks, "New Books"));
+              },
+            ),
+            // continue reading section
+            ContinueReadingSection(
+              onTap: (selectedBook) {
+                homeBloc.add(BookSelectedEvent(selectedBook));
+              },
+              onViewAll: () {
+                homeBloc.add(BookListSelectedEvent(
+                    successState.recommendedBooks, "Continue Reading"));
+              },
+            ),
+            // top manga section
+            const SizedBox(height: 10),
+            BookByTypeSection(
+                books: successState.topBooks,
+                sectionType: "Top Manga",
+                onTap: (selectedBook) {
+                  homeBloc.add(BookSelectedEvent(selectedBook));
+                },
+                onViewAll: () {
+                  homeBloc.add(BookListSelectedEvent(
+                      successState.topBooks, "Top Manga"));
+                }),
+            const SizedBox(height: 10),
+            BookByTypeSection(
+                books: successState.newBooks,
+                sectionType: "Recommend for you",
+                onTap: (selectedBook) {
+                  homeBloc.add(BookSelectedEvent(selectedBook));
+                },
+                onViewAll: () {
+                  homeBloc.add(BookListSelectedEvent(
+                      successState.newBooks, "Recommend for you"));
+                }),
+            const SizedBox(height: 110),
+          ],
+        ),
+      ),
+    );
+  }
+
+  AppBar _buildHomeAppBar(BuildContext context) {
+    return AppBar(
+      // backgroundColor: Colors.white.withOpacity(0.1),
+      title: Row(
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage(AppImage.defaultAvatar),
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            bloc: authenticationBloc,
+            builder: (context, userState) {
+              if (userState is AuthenticationGetUserSuccess) {
+                return Text(userState.user.name);
+              } else if (userState is AuthenticationGetUserFailure) {
+                return const Text("User not found");
+              } else if (userState is AuthenticationLoading) {
+                return const Text("Loading...");
+              }
+              return const Text("Loading...");
+            },
+          ),
+          const Spacer(),
+          if (userId == null)
+            Container(
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppTheme.secondaryColor,
+                  border: Border.all(width: 2, color: AppTheme.iconColor)),
+              child: IconButton(
+                  onPressed: () {
+                    context.pushNamed(Routes.authentication);
+                  },
+                  icon: Icon(
+                    Icons.notifications_none,
+                    size: 30,
+                    color: AppTheme.iconColor,
+                  )),
+            )
+        ],
+      ),
     );
   }
 }

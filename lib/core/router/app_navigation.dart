@@ -1,5 +1,7 @@
 import 'package:fable_cosmic_read_app_fe/core/constant/app_settings.dart';
+import 'package:fable_cosmic_read_app_fe/data/model/continue_reading.dart';
 import 'package:fable_cosmic_read_app_fe/data/model/genre.dart';
+import 'package:fable_cosmic_read_app_fe/presentation/views/book/chapter_read/continue_read_view_all.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/home/view_all_book/view_all_book.dart';
 import 'package:fable_cosmic_read_app_fe/presentation/views/main/search/books_by_genre.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +66,15 @@ class AppNavigation {
           path: Routes.home,
           name: Routes.home,
           builder: (context, state) => const Homepage(),
+        ),
+        GoRoute(
+          path: Routes.continueReadingViewAll,
+          name: Routes.continueReadingViewAll,
+          builder: (context, state) {
+            final List<ContinueReadChapter> continueChapters =
+                state.extra as List<ContinueReadChapter>;
+            return ContinueReadViewAll(continueReading: continueChapters);
+          },
         ),
       ],
       navigatorKey: _shellNavigatorHomeKey,
@@ -136,7 +147,9 @@ class AppNavigation {
               state.extra as Map<String, dynamic>;
           final String bookListName =
               dataPackage["bookListName"] as String? ?? "Currently null";
+
           final List<Book> books = List<Book>.from(dataPackage["books"]);
+
           return ViewAllBook(bookListName: bookListName, books: books);
         },
       ),

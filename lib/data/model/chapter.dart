@@ -6,6 +6,7 @@ class Chapter {
   final String id;
   final String title;
   final List<String> pages;
+  final String bookId;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -13,6 +14,7 @@ class Chapter {
     required this.id,
     required this.title,
     required this.pages,
+    required this.bookId,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -23,6 +25,7 @@ class Chapter {
       id: json['_id'] as String,
       title: json['title'] as String,
       pages: List<String>.from(json['pages']),
+      bookId: json['book'] as String,
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
     );
@@ -34,6 +37,7 @@ class Chapter {
       'id': id,
       'title': title,
       'pages': pages,
+      'book': bookId,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
     };

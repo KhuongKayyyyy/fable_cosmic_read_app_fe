@@ -83,4 +83,25 @@ class ApiConfig {
   static String checkIfBookIsInLibrary(String userId, String bookId) {
     return '${BASE_URL}library/$userId/$bookId';
   }
+
+  // continue reading
+  static String getContinueReadingByUserId(String userId) {
+    return '${BASE_URL}continue-reading/$userId';
+  }
+
+  static String addChapterToContinueReading(String userId) {
+    return '${BASE_URL}continue-reading/$userId/add';
+  }
+
+  static String removeChapterFromContinueReading(String userId) {
+    return '${BASE_URL}continue-reading/$userId/remove';
+  }
+
+  static String clearContinueReading(String userId) {
+    return '${BASE_URL}continue-reading/$userId';
+  }
+
+  static String checkIfChapterIsInContinueReading(String userId) {
+    return '${BASE_URL}continue-reading/$userId/check';
+  }
 }
