@@ -32,28 +32,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
   late ContinueReadChapter? continueReadChapter;
   bool isInLibrary = false;
   final BookDetailBloc bookDetailBloc = BookDetailBloc();
-
-  // void getContinueChapter() async {
-  //   final id =
-  //       await const FlutterSecureStorage().read(key: AppSettings.currentUser);
-  //   final token =
-  //       await const FlutterSecureStorage().read(key: AppSettings.token);
-
-  //   if (id != null && token != null) {
-  //     final continueReading = await ContinueReadingRepo()
-  //         .getContinueReadingByUserId(userId: id, token: token);
-
-  //     final bookContinueReading = continueReading.firstWhere(
-  //       (element) => element.bookId == widget.bookModel.id,
-  //       orElse: () => ContinueReadChapter.empty(), // Use a default value
-  //     );
-
-  //     setState(() {
-  //       continueReadChapter = bookContinueReading;
-  //     });
-  //   }
-  // }
-
   void getContinueChapter() async {
     final id =
         await const FlutterSecureStorage().read(key: AppSettings.currentUser);
@@ -62,7 +40,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
     if (id != null && token != null) {
       continueReadChapter = await ContinueReadingRepo().checkIfBookIsReading(
           userId: id, token: token, bookId: widget.bookModel.id!);
-      print(continueReadChapter);
     }
   }
 

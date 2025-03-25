@@ -1,13 +1,10 @@
-import "package:fable_cosmic_read_app_fe/core/constant/app_settings.dart";
 import "package:fable_cosmic_read_app_fe/core/theme/app_theme.dart";
-import "package:fable_cosmic_read_app_fe/data/res/continue_reading_repo.dart";
 import "package:fable_cosmic_read_app_fe/presentation/bloc/authentication/authentication_bloc.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/book_by_type_section.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/continue_reading_section.dart";
 import "package:fable_cosmic_read_app_fe/presentation/views/main/home/new_book_section.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import "package:flutter_secure_storage/flutter_secure_storage.dart";
 import 'package:go_router/go_router.dart';
 import "package:fable_cosmic_read_app_fe/core/constant/app_image.dart";
 import "package:fable_cosmic_read_app_fe/core/router/routes.dart";
@@ -98,21 +95,21 @@ class _HomepageState extends State<Homepage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            TextButton(
-              onPressed: () async {
-                final id = await const FlutterSecureStorage()
-                    .read(key: AppSettings.currentUser);
-                final token = await const FlutterSecureStorage()
-                    .read(key: AppSettings.token);
-                if (id != null && token != null) {
-                  await ContinueReadingRepo().checkIfBookIsReading(
-                      userId: id,
-                      token: token,
-                      bookId: "670129f9a3d6a4cd7e4bcb0f");
-                }
-              },
-              child: const Text("Test"),
-            ),
+            // TextButton(
+            //   onPressed: () async {
+            //     final id = await const FlutterSecureStorage()
+            //         .read(key: AppSettings.currentUser);
+            //     final token = await const FlutterSecureStorage()
+            //         .read(key: AppSettings.token);
+            //     if (id != null && token != null) {
+            //       await ContinueReadingRepo().checkIfBookIsReading(
+            //           userId: id,
+            //           token: token,
+            //           bookId: "670129f9a3d6a4cd7e4bcb0f");
+            //     }
+            //   },
+            //   child: const Text("Test"),
+            // ),
             // new book section
             NewBookSection(
               books: successState.newBooks,
